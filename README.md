@@ -1,14 +1,14 @@
-# DonateMonitor
+# TwitchDonateMonitor
 
 一款專為實況主設計的多平台斗內監控工具，可即時監控並顯示來自多個金流平台的贊助通知，並支援 OBS 整合功能。
 
 ## 功能特點
 
-- **多平台支援**：同時監控 綠界、歐付寶、Streamlabs
+- **多平台支援**：同時監控 綠界、歐付寶、Streamlabs、HiveBee
 - **即時通知**：透過 SignalR 與 Socket.IO 技術，即時接收並顯示斗內訊息
 - **OBS 整合**：自動輸出斗內訊息至文字檔，方便 OBS 讀取並顯示於實況畫面
 - **CSV 日誌**：自動記錄所有斗內紀錄，依日期分檔儲存
-- **自訂訊息格式**：可自訂各平台的顯示訊息格式與標籤
+- **自訂訊息格式**：可自訂各平台的顯示訊息格式與別名
 
 ## 支援的平台與事件
 
@@ -16,7 +16,8 @@
 |------|----------|----------|
 | 綠界 | 斗內 | 贊助者名稱、金額、訊息 |
 | 歐付寶 | 斗內 | 贊助者名稱、金額、訊息 |
-| HiveBee | 文字斗內、語音斗內 | 贊助者名稱、金額、訊息 |
+| HiveBee | 文字斗內 | 贊助者名稱、金額、訊息 |
+| HiveBee | 影片斗內 | 贊助者名稱、金額、訊息 |
 | Streamlabs | PayPal | 贊助者名稱、金額、幣別、訊息 |
 | Streamlabs | 小奇點 | 贊助者名稱、小奇點數量、訊息 |
 | Streamlabs | 贈送訂閱 | 贈送者名稱、訂閱層級、數量 |
@@ -28,7 +29,7 @@
 
 ## 安裝方式
 
-1. 下載最新版本的發行檔案
+1. [下載最新版本的發行檔案](https://github.com/ga0321/TwitchDonateMonitor/releases/)
 2. 解壓縮至任意資料夾
 3. 執行 `DonateMonitor.exe`
 
@@ -95,13 +96,6 @@
 ### CSV 展示
 
 ![CSV_DEMO](img/3.png)
-
-## 技術架構
-
-- **開發框架**：.NET Framework 4.7.2 + Windows Forms
-- **即時通訊**：SignalR (ECPay)、Socket.IO (OPay、Streamlabs)
-- **JSON 解析**：Newtonsoft.Json、System.Text.Json
-- **執行緒安全**：ConcurrentQueue 實現非同步事件處理
 
 ## 授權
 
