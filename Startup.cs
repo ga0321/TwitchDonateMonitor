@@ -22,7 +22,8 @@ namespace DonateMonitor
 
             Tb_ECPayAPIURL.Text = Setting.Read(Setting.kECPAY_APIURL);
             Tb_OPayAPIURL.Text = Setting.Read(Setting.kOPAY_APIURL);
-            Tb_StreamlabsKey.Text = Global.StreamlabsKey;
+            Tb_StreamlabsKey.Text = Setting.Read(Setting.kSTREAMLABS_KEY);
+            Tb_HiveBeeAPIURL.Text = Setting.Read(Setting.kHIVEBEE_KEY);
         }
 
         private static bool GetHttpResponse(string sApiUrl, out string osResult)
@@ -125,61 +126,119 @@ namespace DonateMonitor
         }
         #endregion
 
-        #region Streamlabs
-        private void SaveStreamlabsKey()
+        #region HiveBee
+        private static bool InitHiveBee(string sApiUrl)
         {
-            var tb = Tb_StreamlabsKey.Text;
-            if (!string.IsNullOrEmpty(tb))
+            try
             {
-                Setting.Save(Setting.kSTREAMLABS_KEY, tb);
-                Global.StreamlabsKey = tb;
+                if (!GetHttpResponse(sApiUrl, out string sResult) && string.IsNullOrEmpty(sResult))
+                {
+                    Global.ShowError("HiveBee初始化失敗，請稍後再試");
+                    return false;
+                }
+#if DEBUG
+                Console.WriteLine(sResult);
+#endif
+
+                Global.HiveBeeKey = new Uri(sApiUrl).Segments.Last();
+
+#if DEBUG
+                Console.WriteLine($"HiveBeeKey: {Global.HiveBeeKey}");
+#endif
+                return true;
             }
+            catch (Exception e)
+            {
+                Global.ShowError($"HiveBee初始化失敗: {e.Message}", true);
+            }
+            return false;
         }
         #endregion
 
-        private void BtInitECPay_Click(object sender, EventArgs e)
+        #region StreamLabs
+        private bool InitStreamLabs(string sApiUrl)
+        {
+            var tb = Tb_StreamlabsKey;
+            Setting.Save(Setting.kSTREAMLABS_KEY, tb.Text);
+            Global.StreamlabsKey = tb.Text;
+            return true;
+        }
+        #endregion
+
+        private void BtInitECPay_Click()
         {
             var tb = Tb_ECPayAPIURL;
             string sApiUrl = tb.Text;
             if (string.IsNullOrEmpty(sApiUrl))
             {
-                Global.ShowError("請輸入網址");
+                //Global.ShowError("請輸入網址");
                 return;
             }
 
             Setting.Save(Setting.kECPAY_APIURL, sApiUrl);
             if (InitECPay(sApiUrl))
             {
-                var btn = (Button)sender;
-                btn.Enabled = false;
-                btn.Text = "成 功";
                 tb.Enabled = false;
             }
         }
 
-        private void BtInitOPay_Click(object sender, EventArgs e)
+        private void BtInitOPay_Click()
         {
             var tb = Tb_OPayAPIURL;
             string sApiUrl = tb.Text;
             if (string.IsNullOrEmpty(sApiUrl))
             {
-                Global.ShowError("請輸入網址");
+                //Global.ShowError("請輸入網址");
                 return;
             }
 
             Setting.Save(Setting.kOPAY_APIURL, sApiUrl);
             if (InitOPay(sApiUrl))
             {
-                var btn = (Button)sender;
-                btn.Enabled = false;
-                btn.Text = "成 功";
+                tb.Enabled = false;
+            }
+        }
+
+        private void BtInitStreamLabs_Click()
+        {
+            var tb = Tb_StreamlabsKey;
+            string sApiUrl = tb.Text;
+            if (string.IsNullOrEmpty(sApiUrl))
+            {
+                //Global.ShowError("請輸入KEY");
+                return;
+            }
+
+            if (InitStreamLabs(sApiUrl))
+            {
+                tb.Enabled = false;
+            }
+        }
+
+        private void BtInitHiveBee_Click()
+        {
+            var tb = Tb_HiveBeeAPIURL;
+            string sApiUrl = tb.Text;
+            if (string.IsNullOrEmpty(sApiUrl))
+            {
+                //Global.ShowError("請輸入網址");
+                return;
+            }
+
+            Setting.Save(Setting.kHIVEBEE_KEY, sApiUrl);
+            if (InitHiveBee(sApiUrl))
+            {
                 tb.Enabled = false;
             }
         }
 
         private void BtnEnterMonitor_Click(object sender, EventArgs e)
         {
-            SaveStreamlabsKey();
+            BtInitECPay_Click();
+            BtInitOPay_Click();
+            BtInitStreamLabs_Click();
+            BtInitHiveBee_Click();
+
             if (!Global.IsEnableAnyService())
             {
                 Global.ShowError("請至少初始化一種服務");

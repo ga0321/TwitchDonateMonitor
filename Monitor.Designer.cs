@@ -33,6 +33,7 @@
             this.BtConfig = new System.Windows.Forms.Button();
             this.lbOPAY_Status = new System.Windows.Forms.Label();
             this.lbStreamlabs_Status = new System.Windows.Forms.Label();
+            this.lbHiveBee_Status = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbECPAY_Status
@@ -51,11 +52,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Tb_MonitorOut.Font = new System.Drawing.Font("Noto Sans TC", 14F);
-            this.Tb_MonitorOut.Location = new System.Drawing.Point(12, 108);
+            this.Tb_MonitorOut.Location = new System.Drawing.Point(12, 120);
             this.Tb_MonitorOut.Multiline = true;
             this.Tb_MonitorOut.Name = "Tb_MonitorOut";
             this.Tb_MonitorOut.ReadOnly = true;
-            this.Tb_MonitorOut.Size = new System.Drawing.Size(921, 572);
+            this.Tb_MonitorOut.Size = new System.Drawing.Size(921, 560);
             this.Tb_MonitorOut.TabIndex = 2;
             // 
             // BtConfig
@@ -83,17 +84,28 @@
             // 
             this.lbStreamlabs_Status.AutoSize = true;
             this.lbStreamlabs_Status.Font = new System.Drawing.Font("Noto Sans TC", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.lbStreamlabs_Status.Location = new System.Drawing.Point(12, 63);
+            this.lbStreamlabs_Status.Location = new System.Drawing.Point(12, 90);
             this.lbStreamlabs_Status.Name = "lbStreamlabs_Status";
             this.lbStreamlabs_Status.Size = new System.Drawing.Size(213, 27);
             this.lbStreamlabs_Status.TabIndex = 5;
             this.lbStreamlabs_Status.Text = "Streamlabs 狀態：無效";
+            // 
+            // lbHiveBee_Status
+            // 
+            this.lbHiveBee_Status.AutoSize = true;
+            this.lbHiveBee_Status.Font = new System.Drawing.Font("Noto Sans TC", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lbHiveBee_Status.Location = new System.Drawing.Point(12, 63);
+            this.lbHiveBee_Status.Name = "lbHiveBee_Status";
+            this.lbHiveBee_Status.Size = new System.Drawing.Size(185, 27);
+            this.lbHiveBee_Status.TabIndex = 6;
+            this.lbHiveBee_Status.Text = "HiveBee 狀態：無效";
             // 
             // Monitor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(945, 692);
+            this.Controls.Add(this.lbHiveBee_Status);
             this.Controls.Add(this.lbStreamlabs_Status);
             this.Controls.Add(this.lbOPAY_Status);
             this.Controls.Add(this.BtConfig);
@@ -118,5 +130,6 @@
         private System.Windows.Forms.Button BtConfig;
         private System.Windows.Forms.Label lbOPAY_Status;
         private System.Windows.Forms.Label lbStreamlabs_Status;
+        private System.Windows.Forms.Label lbHiveBee_Status;
     }
 }

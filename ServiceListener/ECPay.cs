@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -74,7 +75,6 @@ namespace DonateMonitor.ServiceListener
                     return Task.CompletedTask;
                 };
 
-
                 await _connection.StartAsync(token);
 #if DEBUG
                 Console.WriteLine("ECPay connected");
@@ -101,7 +101,8 @@ namespace DonateMonitor.ServiceListener
             if (_connection != null)
             {
                 await _connection.StopAsync();
-                await _connection.DisposeAsync();
+                if (_connection != null)
+                    await _connection.DisposeAsync();
                 _connection = null;
             }
         }

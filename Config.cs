@@ -41,6 +41,7 @@ namespace DonateMonitor
 
             Tb_Msg_ECPay_Msg.Text = Global.ECPAY_OBS_Msg;
             Tb_Msg_OPay_Msg.Text = Global.OPAY_OBS_Msg;
+            Tb_Msg_HiveBee_Msg.Text = Global.HIVEBEE_OBS_Msg;
             Tb_Msg_Streamlabs_Paypal_Msg.Text = Global.Streamlabs_Paypal_OBS_Msg;
             Tb_Msg_Streamlabs_SubGift_Msg.Text = Global.Streamlabs_SubGift_OBS_Msg;
             Tb_Msg_Streamlabs_Bits_Msg.Text = Global.Streamlabs_Bits_OBS_Msg;
@@ -63,6 +64,7 @@ namespace DonateMonitor
 
             Global.ECPAY_OBS_Msg = Tb_Msg_ECPay_Msg.Text;
             Global.OPAY_OBS_Msg = Tb_Msg_OPay_Msg.Text;
+            Global.HIVEBEE_OBS_Msg = Tb_Msg_HiveBee_Msg.Text;
             Global.Streamlabs_Paypal_OBS_Msg = Tb_Msg_Streamlabs_Paypal_Msg.Text;
             Global.Streamlabs_SubGift_OBS_Msg = Tb_Msg_Streamlabs_SubGift_Msg.Text;
             Global.Streamlabs_Bits_OBS_Msg = Tb_Msg_Streamlabs_Bits_Msg.Text;
@@ -98,11 +100,13 @@ namespace DonateMonitor
             var kECPAY_APIURL = Setting.Read(Setting.kECPAY_APIURL);
             var kOPAY_APIURL = Setting.Read(Setting.kOPAY_APIURL);
             var kSTREAMLABS_KEY = Setting.Read(Setting.kSTREAMLABS_KEY);
+            var kHIVEBEE_KEY = Setting.Read(Setting.kHIVEBEE_KEY);
 
             Setting.Reset();
             Setting.Save(Setting.kECPAY_APIURL, kECPAY_APIURL);
             Setting.Save(Setting.kOPAY_APIURL, kOPAY_APIURL);
             Setting.Save(Setting.kSTREAMLABS_KEY, kSTREAMLABS_KEY);
+            Setting.Save(Setting.kHIVEBEE_KEY, kHIVEBEE_KEY);
             Global.InitSettings();
             Global.LoadSettings();
             LoadConfig();
@@ -140,6 +144,13 @@ namespace DonateMonitor
         {
             SaveSettings();
             _monitor.AppendLogFromStreamlabs_Bits("test", "100", "測試小奇點訊息", true);
+            RestoreSettings();
+        }
+
+        private void BtPreview_HiveBee_Click(object sender, EventArgs e)
+        {
+            SaveSettings();
+            _monitor.AppendLogFromHiveBee("測試HiveBee", "100", "測試HiveBee訊息", true);
             RestoreSettings();
         }
     }

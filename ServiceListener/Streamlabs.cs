@@ -55,7 +55,7 @@ namespace DonateMonitor.ServiceListener
                 _connection.OnConnected += (sender, e) =>
                 {
                     monitor.AddLog("與Streamlabs伺服器連線成功");
-                    monitor.SetStreamlabs(true);
+                    monitor.SetActiveStreamlabs(true);
 #if DEBUG
                     Console.WriteLine("Streamlabs OnConnected");
 #endif
@@ -65,7 +65,7 @@ namespace DonateMonitor.ServiceListener
                 _connection.OnDisconnected += (sender, reason) =>
                 {
                     monitor.AddLog("與Streamlabs伺服器連線中斷");
-                    monitor.SetStreamlabs(false);
+                    monitor.SetActiveStreamlabs(false);
 #if DEBUG
                     Console.WriteLine($"Streamlabs OnDisconnected: {reason}");
 #endif
@@ -75,7 +75,7 @@ namespace DonateMonitor.ServiceListener
                 _connection.OnReconnected += (sender, e) =>
                 {
                     monitor.AddLog("嘗試與Streamlabs伺服器連線中...");
-                    monitor.SetStreamlabs(true);
+                    monitor.SetActiveStreamlabs(true);
 #if DEBUG
                     Console.WriteLine("Streamlabs OnReconnected");
 #endif
@@ -85,7 +85,7 @@ namespace DonateMonitor.ServiceListener
                 _connection.OnError += (sender, error) =>
                 {
                     monitor.AddLog("與Streamlabs伺服器連線發生錯誤");
-                    monitor.SetStreamlabs(false);
+                    monitor.SetActiveStreamlabs(false);
                     Global.WriteErrorLog(error);
 #if DEBUG
                     Console.WriteLine($"Streamlabs OnError: {error}");

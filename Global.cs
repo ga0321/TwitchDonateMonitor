@@ -15,9 +15,11 @@ namespace DonateMonitor
         static public readonly string kECPAY_APIURL = "ECPAY_APIURL";
         static public readonly string kOPAY_APIURL = "OPAY_APIURL";
         static public readonly string kSTREAMLABS_KEY = "STREAMLABS_KEY";
+        static public readonly string kHIVEBEE_KEY = "HIVEBEE_KEY";
         static public readonly string kOBS_OUTPUT_MODE = "OBS_OUTPUT_MODE";
         static public readonly string kOBS_ECPAY_OUTPUT_MSG = "OBS_ECPAY_OUTPUT_MSG";
         static public readonly string kOBS_OPAY_OUTPUT_MSG = "OBS_OPAY_OUTPUT_MSG";
+        static public readonly string kOBS_HIVEBEE_OUTPUT_MSG = "OBS_HIVEBEE_OUTPUT_MSG";
         static public readonly string kOBS_STREAMLABS_PAYPAL_OUTPUT_MSG = "OBS_STREAMLABS_PAYPAL_OUTPUT_MSG";
         static public readonly string kOBS_STREAMLABS_BITS_OUTPUT_MSG = "OBS_STREAMLABS_BITS_OUTPUT_MSG";
         static public readonly string kOBS_STREAMLABS_SUBGIFT_OUTPUT_MSG = "OBS_STREAMLABS_SUB_GIFT_OUTPUT_MSG";
@@ -67,12 +69,14 @@ namespace DonateMonitor
         static private string _sECPAY_LoginToken = null;
         static private string _sECPAY_ListenKey = null;
         static private string _sOPAY_ListenKey = null;
+        static private string _sHiveBee_ListenKey = null;
+        static private string _sStreamlabsKey = null;
         public struct VARS
         {
-            public string _sStreamlabsKey;
             public int _nOBS_OutputMode;
             public string _sECPAY_OBS_Msg;
             public string _sOPAY_OBS_Msg;
+            public string _sHIVEBEE_OBS_Msg;
             public string _sStreamlabs_Paypal_OBS_Msg;
             public string _sStreamlabs_Bits_OBS_Msg;
             public string _sStreamlabs_SubGift_OBS_Msg;
@@ -105,8 +109,13 @@ namespace DonateMonitor
         }
         public static string StreamlabsKey
         {
-            get => Volatile.Read(ref _VARS._sStreamlabsKey);
-            set => Interlocked.Exchange(ref _VARS._sStreamlabsKey, value);
+            get => Volatile.Read(ref _sStreamlabsKey);
+            set => Interlocked.Exchange(ref _sStreamlabsKey, value);
+        }
+        public static string HiveBeeKey
+        {
+            get => Volatile.Read(ref _sHiveBee_ListenKey);
+            set => Interlocked.Exchange(ref _sHiveBee_ListenKey, value);
         }
         public static int OBS_OutputMode
         {
@@ -122,6 +131,11 @@ namespace DonateMonitor
         {
             get => Volatile.Read(ref _VARS._sOPAY_OBS_Msg);
             set => Interlocked.Exchange(ref _VARS._sOPAY_OBS_Msg, value);
+        }
+        public static string HIVEBEE_OBS_Msg
+        {
+            get => Volatile.Read(ref _VARS._sHIVEBEE_OBS_Msg);
+            set => Interlocked.Exchange(ref _VARS._sHIVEBEE_OBS_Msg, value);
         }
         public static string Streamlabs_Paypal_OBS_Msg
         {
@@ -175,10 +189,10 @@ namespace DonateMonitor
         }
         static public void InitSettings()
         {
-            _rVARS._sStreamlabsKey = null;
             _rVARS._nOBS_OutputMode = 0;
             _rVARS._sECPAY_OBS_Msg = "{0}: {1}{2}";
             _rVARS._sOPAY_OBS_Msg = "{0}: {1}{2}";
+            _rVARS._sHIVEBEE_OBS_Msg = "{0}: {1}{2}";
             _rVARS._sStreamlabs_Paypal_OBS_Msg = "{0}: {1}{2}";
             _rVARS._sStreamlabs_Bits_OBS_Msg = "{0}: {1}{2}";
             _rVARS._sStreamlabs_SubGift_OBS_Msg = "{0}: {1}{2}({3})";
@@ -203,10 +217,6 @@ namespace DonateMonitor
                     OBS_OutputMode = 0;
             }
 
-            sVar = Setting.Read(Setting.kSTREAMLABS_KEY);
-            if (!string.IsNullOrEmpty(sVar))
-                StreamlabsKey = sVar;
-
             sVar = Setting.Read(Setting.kOBS_ECPAY_OUTPUT_MSG);
             if (!string.IsNullOrEmpty(sVar))
                 ECPAY_OBS_Msg = sVar;
@@ -214,6 +224,10 @@ namespace DonateMonitor
             sVar = Setting.Read(Setting.kOBS_OPAY_OUTPUT_MSG);
             if (!string.IsNullOrEmpty(sVar))
                 OPAY_OBS_Msg = sVar;
+
+            sVar = Setting.Read(Setting.kOBS_HIVEBEE_OUTPUT_MSG);
+            if (!string.IsNullOrEmpty(sVar))
+                HIVEBEE_OBS_Msg = sVar;
 
             sVar = Setting.Read(Setting.kOBS_STREAMLABS_PAYPAL_OUTPUT_MSG);
             if (!string.IsNullOrEmpty(sVar))
@@ -265,6 +279,7 @@ namespace DonateMonitor
             Setting.Save(Setting.kOBS_OUTPUT_MODE, OBS_OutputMode.ToString());
             Setting.Save(Setting.kOBS_ECPAY_OUTPUT_MSG, ECPAY_OBS_Msg);
             Setting.Save(Setting.kOBS_OPAY_OUTPUT_MSG, OPAY_OBS_Msg);
+            Setting.Save(Setting.kOBS_HIVEBEE_OUTPUT_MSG, HIVEBEE_OBS_Msg);
             Setting.Save(Setting.kOBS_STREAMLABS_PAYPAL_OUTPUT_MSG, Streamlabs_Paypal_OBS_Msg);
             Setting.Save(Setting.kOBS_STREAMLABS_BITS_OUTPUT_MSG, Streamlabs_Bits_OBS_Msg);
             Setting.Save(Setting.kOBS_STREAMLABS_SUBGIFT_OUTPUT_MSG, Streamlabs_SubGift_OBS_Msg);
@@ -312,13 +327,17 @@ namespace DonateMonitor
         {
             return !string.IsNullOrEmpty(StreamlabsKey);
         }
+        static public bool IsEnableHiveBee()
+        {
+            return !string.IsNullOrEmpty(HiveBeeKey);
+        }
         static public bool IsEnableAnyService()
         {
-            return IsEnableECPAY() || IsEnableOPAY() || IsEnableStreamlabs();
+            return IsEnableECPAY() || IsEnableOPAY() || IsEnableStreamlabs() || IsEnableHiveBee();
         }
         static public bool IsEnableAllService()
         {
-            return IsEnableECPAY() && IsEnableOPAY() && IsEnableStreamlabs();
+            return IsEnableECPAY() && IsEnableOPAY() && IsEnableStreamlabs() && IsEnableHiveBee();
         }
         static public string FormatAmount(string amount)
         {

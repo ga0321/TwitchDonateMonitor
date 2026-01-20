@@ -23,6 +23,7 @@ namespace DonateMonitor
         private readonly ServiceListener.ECPay _servicesECPAY = new ServiceListener.ECPay();
         private readonly ServiceListener.OPay _servicesOPAY = new ServiceListener.OPay();
         private readonly ServiceListener.Streamlabs _servicesStreamlabs = new ServiceListener.Streamlabs();
+        private readonly ServiceListener.HiveBee _servicesHiveBee = new ServiceListener.HiveBee();
         private void PrependText(TextBoxBase tb, string text)
         {
             tb.SuspendLayout();
@@ -82,6 +83,10 @@ namespace DonateMonitor
         {
             AppendLog(4, acc, amount, displayName, Global.Custom_Sub_Gift, subplan, isPreview);
         }
+        public void AppendLogFromHiveBee(string name, string amount, string msg, bool isPreview = false)
+        {
+            AppendLog(5, name, amount, msg, "TWD", null, isPreview);
+        }
         private void AppendLog(int nType, string name, string amount, string msg, string currency = "TWD", string subplan = null, bool isPreview = false)
         {
             if (string.IsNullOrEmpty(msg))
@@ -90,7 +95,12 @@ namespace DonateMonitor
             string type;
             string obsMsg;
             string displayName = null;
-            if (nType == 4)
+            if (nType == 5)
+            {
+                type = "HiveBee";
+                obsMsg = Global.HIVEBEE_OBS_Msg;
+            }
+            else if (nType == 4)
             {
                 type = Global.Custom_Sub_Gift;
                 obsMsg = Global.Streamlabs_SubGift_OBS_Msg;
@@ -162,11 +172,18 @@ namespace DonateMonitor
                 lbOPAY_Status.Text = $"歐富寶狀態：{(bActive ? "有效" : "無效")}";
             });
         }
-        public void SetStreamlabs(bool bActive)
+        public void SetActiveStreamlabs(bool bActive)
         {
             SafeUpdateUI(() =>
             {
                 lbStreamlabs_Status.Text = $"Streamlabs 狀態：{(bActive ? "有效" : "無效")}";
+            });
+        }
+        public void SetActiveHivebee(bool bActive)
+        {
+            SafeUpdateUI(() =>
+            {
+                lbHiveBee_Status.Text = $"HiveBee 狀態：{(bActive ? "有效" : "無效")}";
             });
         }
         private void SafeUpdateUI(Action action)
@@ -189,6 +206,10 @@ namespace DonateMonitor
             if (Global.IsEnableStreamlabs())
             {
                 _ = _servicesStreamlabs.StartAsync(this, _ctsServices.Token);
+            }
+            if (Global.IsEnableHiveBee())
+            {
+                _ = _servicesHiveBee.StartAsync(this, _ctsServices.Token);
             }
         }
         private async Task UninitServices()
