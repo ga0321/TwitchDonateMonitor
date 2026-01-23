@@ -143,7 +143,7 @@ namespace DonateMonitor.ServiceListener
                                 }
                             }
                         }
-                        else if (/*type == "subscription" || */type == "subMysteryGift")
+                        else if (/*type == "subscription" || */type.ToLower().Equals("submysterygift"))
                         {
                             if (ev["message"] is JArray msgs)
                             {
@@ -157,14 +157,14 @@ namespace DonateMonitor.ServiceListener
                                     bool isAnon = (condition == "ANON_SUBSCRIPTION_GIFT" || condition == "MIN_ANON_SUBMYSTERYGIFT");
                                     var gifter_ac = isAnon ? Global.Custom_ANON : m["gifter"]?.ToString();
                                     var gifter_display = isAnon ? Global.Custom_ANON : m["gifter_display_name"]?.ToString();
-                                    if (gifter_ac.Equals("Anonymous"))
+                                    if (gifter_ac.ToLower().Equals("anonymous"))
                                     {
                                         gifter_ac = Global.Custom_ANON;
                                         gifter_display = Global.Custom_ANON;
                                     }
                                     var sub_plan = m["sub_plan"]?.ToString();
 
-                                    if (subType == "subgift")
+                                    if (subType.ToLower().Equals("subgift"))
                                     {
                                         
                                         var amount = m["months"]?.ToString();
@@ -175,7 +175,7 @@ namespace DonateMonitor.ServiceListener
 
                                         monitor.AppendLogFromStreamlabs_SubGift(gifter_ac, amount, gifter_display, SubPlanToText(sub_plan));
                                     }
-                                    else if (subType == "submysterygift")
+                                    else if (subType.ToLower().Equals("submysterygift"))
                                     {
                                         var amount = m["amount"]?.ToString();
 #if DEBUG
