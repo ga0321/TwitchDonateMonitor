@@ -143,7 +143,7 @@ namespace DonateMonitor.ServiceListener
                                 }
                             }
                         }
-                        else if (type == "subscription" || type == "subMysteryGift")
+                        else if (/*type == "subscription" || */type == "subMysteryGift")
                         {
                             if (ev["message"] is JArray msgs)
                             {
