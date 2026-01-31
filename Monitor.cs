@@ -450,6 +450,8 @@ namespace DonateMonitor
             InitializeComponent();
             InitLogPump();
             LoadCumulativeDataFromDB();
+            LoadDonateData();
+            AddLog($"已讀取 {_donateRecords.Count} 筆累計資料");
             InitServices();
         }
         private async void Monitor_FormClosing(object sender, FormClosingEventArgs e)
@@ -471,6 +473,159 @@ namespace DonateMonitor
             if (result == DialogResult.Yes)
             {
                 ClearSubGiftCount();
+            }
+        }
+
+        private List<DonateRecord> _donateRecords = new List<DonateRecord>();
+
+        private void LoadDonateData()
+        {
+            _donateRecords = DonateDB.GetAllRecords();
+            dgvDonateData.DataSource = null;
+            dgvDonateData.DataSource = _donateRecords;
+
+            // 設定欄位標題
+            if (dgvDonateData.Columns.Count > 0)
+            {
+                dgvDonateData.Columns["Id"].HeaderText = "ID";
+                dgvDonateData.Columns["Id"].ReadOnly = true;
+                dgvDonateData.Columns["DateTime"].HeaderText = "時間";
+                dgvDonateData.Columns["Account"].HeaderText = "帳號";
+                dgvDonateData.Columns["DisplayName"].HeaderText = "顯示名稱";
+                dgvDonateData.Columns["Amount"].HeaderText = "金額";
+                dgvDonateData.Columns["Currency"].HeaderText = "幣別";
+                dgvDonateData.Columns["Message"].HeaderText = "訊息";
+                dgvDonateData.Columns["SubPlan"].HeaderText = "方案";
+
+                // 將 Type 欄位替換為下拉選單
+                int typeColumnIndex = dgvDonateData.Columns["Type"].Index;
+                dgvDonateData.Columns.Remove("Type");
+
+                var typeComboColumn = new DataGridViewComboBoxColumn
+                {
+                    Name = "Type",
+                    HeaderText = "類型",
+                    DataPropertyName = "Type",
+                    DisplayIndex = typeColumnIndex,
+                    FlatStyle = FlatStyle.Flat
+                };
+
+                // 添加支援的類型選項
+                typeComboColumn.Items.AddRange(new string[]
+                {
+                    Global.Type_ECPay,
+                    Global.Type_OPay,
+                    Global.Type_HiveBee,
+                    Global.Type_Paypal,
+                    Global.Type_Sub,
+                    Global.Type_Resub,
+                    Global.Custom_Sub_Gift,
+                    Global.Custom_Bits
+                });
+
+                dgvDonateData.Columns.Insert(typeColumnIndex, typeComboColumn);
+            }
+        }
+
+        private void BtRefreshData_Click(object sender, EventArgs e)
+        {
+            LoadDonateData();
+            AddLog("已重新載入資料");
+        }
+
+        private void BtAddData_Click(object sender, EventArgs e)
+        {
+            using (var form = new AddDonateRecord())
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    int newId = DonateDB.Insert(
+                        form.RecordDateTime,
+                        form.RecordType,
+                        form.RecordAccount,
+                        form.RecordDisplayName,
+                        form.RecordAmount,
+                        form.RecordCurrency,
+                        form.RecordMessage,
+                        form.RecordSubPlan
+                    );
+                    LoadDonateData();
+                    ReloadObsData();
+                    AddLog($"已新增資料 (ID: {newId})");
+                }
+            }
+        }
+
+        private void BtDeleteSelected_Click(object sender, EventArgs e)
+        {
+            if (dgvDonateData.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("請先選取要刪除的資料列", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            var result = MessageBox.Show($"確定要刪除選取的 {dgvDonateData.SelectedRows.Count} 筆資料嗎？", "確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result != DialogResult.Yes)
+                return;
+
+            foreach (DataGridViewRow row in dgvDonateData.SelectedRows)
+            {
+                if (row.DataBoundItem is DonateRecord record)
+                {
+                    DonateDB.DeleteById(record.Id);
+                }
+            }
+
+            LoadDonateData();
+            ReloadObsData();
+            AddLog($"已刪除 {dgvDonateData.SelectedRows.Count} 筆資料");
+        }
+
+        private void BtSaveChanges_Click(object sender, EventArgs e)
+        {
+            int updatedCount = 0;
+            foreach (var record in _donateRecords)
+            {
+                DonateDB.UpdateById(
+                    record.Id,
+                    record.DateTime,
+                    record.Type,
+                    record.Account,
+                    record.DisplayName,
+                    record.Amount,
+                    record.Currency,
+                    record.Message,
+                    record.SubPlan
+                );
+                updatedCount++;
+            }
+
+            ReloadObsData();
+            AddLog($"已儲存 {updatedCount} 筆資料");
+            MessageBox.Show($"已儲存 {updatedCount} 筆資料", "完成", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void ReloadObsData()
+        {
+            _obsDict.Clear();
+            LoadCumulativeDataFromDB();
+            WriteObsFile();
+        }
+
+        private void WriteObsFile()
+        {
+            string obsFileName = "obs.txt";
+            if (_obsDict.Count > 0)
+            {
+                var lines = _obsDict.Values.ToArray();
+                if (Global.OBS_OutputMode == 1)
+                    File.WriteAllText(obsFileName, string.Join(" ", lines), Encoding.UTF8);
+                else
+                    File.WriteAllText(obsFileName, string.Join(Environment.NewLine, lines), Encoding.UTF8);
+            }
+            else
+            {
+                File.WriteAllText(obsFileName, "", Encoding.UTF8);
             }
         }
     }

@@ -253,5 +253,134 @@ namespace DonateMonitor
                 return "";
             return field.Replace("\"", "\"\"");
         }
+
+        /// <summary>
+        /// 取得所有記錄（用於 DataGridView 顯示）
+        /// </summary>
+        public static List<DonateRecord> GetAllRecords()
+        {
+            var result = new List<DonateRecord>();
+            using (var conn = new SQLiteConnection(ConnectionString))
+            {
+                conn.Open();
+                string sql = "SELECT Id, DateTime, Type, Account, DisplayName, Amount, Currency, Message, SubPlan FROM DonateLog ORDER BY Id DESC";
+                using (var cmd = new SQLiteCommand(sql, conn))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(new DonateRecord
+                        {
+                            Id = Convert.ToInt32(reader["Id"]),
+                            DateTime = reader["DateTime"]?.ToString() ?? "",
+                            Type = reader["Type"]?.ToString() ?? "",
+                            Account = reader["Account"]?.ToString() ?? "",
+                            DisplayName = reader["DisplayName"]?.ToString() ?? "",
+                            Amount = Convert.ToDecimal(reader["Amount"]),
+                            Currency = reader["Currency"]?.ToString() ?? "",
+                            Message = reader["Message"]?.ToString() ?? "",
+                            SubPlan = reader["SubPlan"]?.ToString() ?? ""
+                        });
+                    }
+                }
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 依 ID 刪除記錄
+        /// </summary>
+        public static void DeleteById(int id)
+        {
+            using (var conn = new SQLiteConnection(ConnectionString))
+            {
+                conn.Open();
+                string sql = "DELETE FROM DonateLog WHERE Id = @id";
+                using (var cmd = new SQLiteCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 新增一筆空白記錄並回傳新 ID
+        /// </summary>
+        public static int Insert(string datetime, string type, string account, string displayName, decimal amount, string currency, string message, string subPlan)
+        {
+            using (var conn = new SQLiteConnection(ConnectionString))
+            {
+                conn.Open();
+                string sql = @"
+                    INSERT INTO DonateLog (DateTime, Type, Account, DisplayName, Amount, Currency, Message, SubPlan)
+                    VALUES (@datetime, @type, @account, @displayName, @amount, @currency, @message, @subPlan);
+                    SELECT last_insert_rowid();";
+
+                using (var cmd = new SQLiteCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@datetime", datetime ?? "");
+                    cmd.Parameters.AddWithValue("@type", type ?? "");
+                    cmd.Parameters.AddWithValue("@account", account ?? "");
+                    cmd.Parameters.AddWithValue("@displayName", displayName ?? "");
+                    cmd.Parameters.AddWithValue("@amount", (double)amount);
+                    cmd.Parameters.AddWithValue("@currency", currency ?? "");
+                    cmd.Parameters.AddWithValue("@message", message ?? "");
+                    cmd.Parameters.AddWithValue("@subPlan", subPlan ?? "");
+                    return Convert.ToInt32(cmd.ExecuteScalar());
+                }
+            }
+        }
+
+        /// <summary>
+        /// 依 ID 更新記錄
+        /// </summary>
+        public static void UpdateById(int id, string datetime, string type, string account, string displayName, decimal amount, string currency, string message, string subPlan)
+        {
+            using (var conn = new SQLiteConnection(ConnectionString))
+            {
+                conn.Open();
+                string sql = @"
+                    UPDATE DonateLog SET
+                        DateTime = @datetime,
+                        Type = @type,
+                        Account = @account,
+                        DisplayName = @displayName,
+                        Amount = @amount,
+                        Currency = @currency,
+                        Message = @message,
+                        SubPlan = @subPlan
+                    WHERE Id = @id";
+                using (var cmd = new SQLiteCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.AddWithValue("@datetime", datetime ?? "");
+                    cmd.Parameters.AddWithValue("@type", type ?? "");
+                    cmd.Parameters.AddWithValue("@account", account ?? "");
+                    cmd.Parameters.AddWithValue("@displayName", displayName ?? "");
+                    cmd.Parameters.AddWithValue("@amount", (double)amount);
+                    cmd.Parameters.AddWithValue("@currency", currency ?? "");
+                    cmd.Parameters.AddWithValue("@message", message ?? "");
+                    cmd.Parameters.AddWithValue("@subPlan", subPlan ?? "");
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// 捐贈記錄資料模型
+    /// </summary>
+    public class DonateRecord
+    {
+        public int Id { get; set; }
+        public string DateTime { get; set; }
+        public string Type { get; set; }
+        public string Account { get; set; }
+        public string DisplayName { get; set; }
+        public decimal Amount { get; set; }
+        public string Currency { get; set; }
+        public string Message { get; set; }
+        public string SubPlan { get; set; }
     }
 }
