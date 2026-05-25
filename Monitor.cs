@@ -26,6 +26,7 @@ namespace DonateMonitor
         private readonly ServiceListener.HiveBee _servicesHiveBee = new ServiceListener.HiveBee();
         private readonly Plugin.SoundAlerts _pluginSoundAlerts = new Plugin.SoundAlerts();
         private readonly ServiceListener.StreamBoostMax_Text _servicesStreamBoostMaxText = new ServiceListener.StreamBoostMax_Text();
+        private readonly ServiceListener.StreamBoostMax_Video _servicesStreamBoostMaxVideo = new ServiceListener.StreamBoostMax_Video();
         private volatile bool _dataGridDirty = false;
         private bool _dataOperationInProgress = false;
         private volatile bool _dataSyncing = false;
@@ -177,6 +178,10 @@ namespace DonateMonitor
                 else if (item.Type == Global.Type_StreamBoostMax_Text)
                 {
                     obsOutput = string.Format(Global.StreamBoostMax_Text_OBS_Msg, item.DisplayName, formated_amount, item.Currency, item.SubPlan);
+                }
+                else if (item.Type == Global.Type_StreamBoostMax_Video)
+                {
+                    obsOutput = string.Format(Global.StreamBoostMax_Video_OBS_Msg, item.DisplayName, formated_amount, item.Currency, item.SubPlan);
                 }
                 else
                 {
@@ -436,6 +441,23 @@ namespace DonateMonitor
 
             AppendLog(9, displayName, totalAmount.ToString(), msg, currency, null, isPreview, acc);
         }
+        public void AppendLogFromStreamBoostMax_Video(string acc, string displayName, string amount, string currency, string videoUrl, bool isPreview = false)
+        {
+            if (!isPreview && _dataOperationInProgress) { _pendingEvents.Enqueue(() => AppendLogFromStreamBoostMax_Video(acc, displayName, amount, currency, videoUrl)); return; }
+            string type = Global.Type_StreamBoostMax_Video;
+            decimal donateAmount = 0;
+            decimal.TryParse(amount, out donateAmount);
+
+            if (!isPreview)
+            {
+                var nowFull = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
+                DonateDB.Write(nowFull, type, acc, displayName, donateAmount, currency, videoUrl, null);
+            }
+
+            decimal totalAmount = isPreview ? donateAmount : DonateDB.GetTotalAmount(acc, type);
+
+            AppendLog(10, displayName, totalAmount.ToString(), videoUrl, currency, null, isPreview, acc);
+        }
         private void AppendLog(int nType, string name, string amount, string msg, string currency = "TWD", string subplan = null, bool isPreview = false, string acc = null)
         {
             if (string.IsNullOrEmpty(msg))
@@ -444,7 +466,12 @@ namespace DonateMonitor
             string type;
             string obsMsg;
             string displayName = null;
-            if (nType == 9)
+            if (nType == 10)
+            {
+                type = Global.Type_StreamBoostMax_Video;
+                obsMsg = Global.StreamBoostMax_Video_OBS_Msg;
+            }
+            else if (nType == 9)
             {
                 type = Global.Type_StreamBoostMax_Text;
                 obsMsg = Global.StreamBoostMax_Text_OBS_Msg;
@@ -584,6 +611,13 @@ namespace DonateMonitor
                 lbStreamBoostMax_Text_Status.Text = $"StreamBoostMax(訊息) 狀態：{(bActive ? "有效" : "無效")}";
             });
         }
+        public void SetActiveStreamBoostMax_Video(bool bActive)
+        {
+            SafeUpdateUI(() =>
+            {
+                lbStreamBoostMax_Video_Status.Text = $"StreamBoostMax(影片) 狀態：{(bActive ? "有效" : "無效")}";
+            });
+        }
         private void SafeUpdateUI(Action action)
         {
             if (IsDisposed) return;
@@ -616,6 +650,10 @@ namespace DonateMonitor
             if (Global.IsEnableStreamBoostMax_Text())
             {
                 _ = _servicesStreamBoostMaxText.StartAsync(this, _ctsServices.Token);
+            }
+            if (Global.IsEnableStreamBoostMax_Video())
+            {
+                _ = _servicesStreamBoostMaxVideo.StartAsync(this, _ctsServices.Token);
             }
         }
         private async Task UninitServices()
@@ -715,7 +753,8 @@ namespace DonateMonitor
                     Global.Custom_Sub_Gift,
                     Global.Custom_Bits,
                     Global.Type_SoundAlerts,
-                    Global.Type_StreamBoostMax_Text
+                    Global.Type_StreamBoostMax_Text,
+                    Global.Type_StreamBoostMax_Video
                 });
 
                 dgvDonateData.Columns.Insert(typeColumnIndex, typeComboColumn);

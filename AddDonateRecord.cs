@@ -37,7 +37,8 @@ namespace DonateMonitor
                 Global.Custom_Sub_Gift,
                 Global.Custom_Bits,
                 Global.Type_SoundAlerts,
-                Global.Type_StreamBoostMax_Text
+                Global.Type_StreamBoostMax_Text,
+                Global.Type_StreamBoostMax_Video
             });
         }
 

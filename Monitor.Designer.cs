@@ -39,6 +39,7 @@
             this.lbHiveBee_Status = new System.Windows.Forms.Label();
             this.lbSoundAlerts_Status = new System.Windows.Forms.Label();
             this.lbStreamBoostMax_Text_Status = new System.Windows.Forms.Label();
+            this.lbStreamBoostMax_Video_Status = new System.Windows.Forms.Label();
             this.BtClearDonateDB = new System.Windows.Forms.Button();
             this.dgvDonateData = new System.Windows.Forms.DataGridView();
             this.BtRefreshData = new System.Windows.Forms.Button();
@@ -72,6 +73,7 @@
             this.tabMonitor.Controls.Add(this.lbStreamlabs_Status);
             this.tabMonitor.Controls.Add(this.lbSoundAlerts_Status);
             this.tabMonitor.Controls.Add(this.lbStreamBoostMax_Text_Status);
+            this.tabMonitor.Controls.Add(this.lbStreamBoostMax_Video_Status);
             this.tabMonitor.Controls.Add(this.Tb_MonitorOut);
             this.tabMonitor.Controls.Add(this.BtConfig);
             this.tabMonitor.Controls.Add(this.BtClearDonateDB);
@@ -171,6 +173,16 @@
             this.lbStreamBoostMax_Text_Status.Size = new System.Drawing.Size(330, 34);
             this.lbStreamBoostMax_Text_Status.TabIndex = 9;
             this.lbStreamBoostMax_Text_Status.Text = "StreamBoostMax(訊息) 狀態：無效";
+            //
+            // lbStreamBoostMax_Video_Status
+            //
+            this.lbStreamBoostMax_Video_Status.AutoSize = true;
+            this.lbStreamBoostMax_Video_Status.Font = new System.Drawing.Font("Noto Sans TC", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lbStreamBoostMax_Video_Status.Location = new System.Drawing.Point(280, 38);
+            this.lbStreamBoostMax_Video_Status.Name = "lbStreamBoostMax_Video_Status";
+            this.lbStreamBoostMax_Video_Status.Size = new System.Drawing.Size(330, 34);
+            this.lbStreamBoostMax_Video_Status.TabIndex = 10;
+            this.lbStreamBoostMax_Video_Status.Text = "StreamBoostMax(影片) 狀態：無效";
             //
             // lbHiveBee_Status
             //
@@ -289,6 +301,7 @@
         private System.Windows.Forms.Label lbHiveBee_Status;
         private System.Windows.Forms.Label lbSoundAlerts_Status;
         private System.Windows.Forms.Label lbStreamBoostMax_Text_Status;
+        private System.Windows.Forms.Label lbStreamBoostMax_Video_Status;
         private System.Windows.Forms.Button BtClearDonateDB;
         private System.Windows.Forms.DataGridView dgvDonateData;
         private System.Windows.Forms.Button BtRefreshData;

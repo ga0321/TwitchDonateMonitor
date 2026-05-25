@@ -49,6 +49,7 @@ namespace DonateMonitor
             Tb_Msg_Streamlabs_Resub_Msg.Text = Global.Streamlabs_Resub_OBS_Msg;
             Tb_Msg_SoundAlerts_Msg.Text = Global.SoundAlerts_OBS_Msg;
             Tb_Msg_StreamBoostMax_Text_Msg.Text = Global.StreamBoostMax_Text_OBS_Msg;
+            Tb_Msg_StreamBoostMax_Video_Msg.Text = Global.StreamBoostMax_Video_OBS_Msg;
             Tb_Msg_Custom_Anon.Text = Global.Custom_ANON;
             Tb_Msg_Custom_Sub_Gift.Text = Global.Custom_Sub_Gift;
             Tb_Msg_Custom_Bits.Text = Global.Custom_Bits;
@@ -77,6 +78,7 @@ namespace DonateMonitor
             Global.Streamlabs_Resub_OBS_Msg = Tb_Msg_Streamlabs_Resub_Msg.Text;
             Global.SoundAlerts_OBS_Msg = Tb_Msg_SoundAlerts_Msg.Text;
             Global.StreamBoostMax_Text_OBS_Msg = Tb_Msg_StreamBoostMax_Text_Msg.Text;
+            Global.StreamBoostMax_Video_OBS_Msg = Tb_Msg_StreamBoostMax_Video_Msg.Text;
             Global.Custom_ANON = Tb_Msg_Custom_Anon.Text;
             Global.Custom_Sub_Gift = Tb_Msg_Custom_Sub_Gift.Text;
             Global.Custom_Bits = Tb_Msg_Custom_Bits.Text;
@@ -113,6 +115,7 @@ namespace DonateMonitor
             var kHIVEBEE_KEY = Setting.Read(Setting.kHIVEBEE_KEY);
             var kSOUNDALERTS_URL = Setting.Read(Setting.kSOUNDALERTS_OVERLAY_URL);
             var kSTREAMBOOSTMAX_TEXT_URL = Setting.Read(Setting.kSTREAMBOOSTMAX_TEXT_OVERLAY_URL);
+            var kSTREAMBOOSTMAX_VIDEO_URL = Setting.Read(Setting.kSTREAMBOOSTMAX_VIDEO_OVERLAY_URL);
 
             Setting.Reset();
             Setting.Save(Setting.kECPAY_APIURL, kECPAY_APIURL);
@@ -121,6 +124,7 @@ namespace DonateMonitor
             Setting.Save(Setting.kHIVEBEE_KEY, kHIVEBEE_KEY);
             Setting.Save(Setting.kSOUNDALERTS_OVERLAY_URL, kSOUNDALERTS_URL);
             Setting.Save(Setting.kSTREAMBOOSTMAX_TEXT_OVERLAY_URL, kSTREAMBOOSTMAX_TEXT_URL);
+            Setting.Save(Setting.kSTREAMBOOSTMAX_VIDEO_OVERLAY_URL, kSTREAMBOOSTMAX_VIDEO_URL);
             Global.InitSettings();
             Global.LoadSettings();
             LoadConfig();
@@ -193,6 +197,13 @@ namespace DonateMonitor
         {
             SaveSettings();
             _monitor.AppendLogFromStreamBoostMax_Text("test", "測試StreamBoostMax", "100", "TWD", "測試訊息斗內", true);
+            RestoreSettings();
+        }
+
+        private void BtPreview_StreamBoostMax_Video_Click(object sender, EventArgs e)
+        {
+            SaveSettings();
+            _monitor.AppendLogFromStreamBoostMax_Video("test", "測試StreamBoostMax", "100", "TWD", "https://example.com/test-video", true);
             RestoreSettings();
         }
     }

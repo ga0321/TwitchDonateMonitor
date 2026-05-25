@@ -18,6 +18,7 @@ namespace DonateMonitor
         static public readonly string kHIVEBEE_KEY = "HIVEBEE_KEY";
         static public readonly string kSOUNDALERTS_OVERLAY_URL = "SOUNDALERTS_OVERLAY_URL";
         static public readonly string kSTREAMBOOSTMAX_TEXT_OVERLAY_URL = "STREAMBOOSTMAX_TEXT_OVERLAY_URL";
+        static public readonly string kSTREAMBOOSTMAX_VIDEO_OVERLAY_URL = "STREAMBOOSTMAX_VIDEO_OVERLAY_URL";
         static public readonly string kOBS_OUTPUT_MODE = "OBS_OUTPUT_MODE";
         static public readonly string kOBS_ECPAY_OUTPUT_MSG = "OBS_ECPAY_OUTPUT_MSG";
         static public readonly string kOBS_OPAY_OUTPUT_MSG = "OBS_OPAY_OUTPUT_MSG";
@@ -35,6 +36,7 @@ namespace DonateMonitor
         static public readonly string kCUSTOM_BITS = "CUSTOM_BITS";
         static public readonly string kOBS_SOUNDALERTS_OUTPUT_MSG = "OBS_SOUNDALERTS_OUTPUT_MSG";
         static public readonly string kOBS_STREAMBOOSTMAX_TEXT_OUTPUT_MSG = "OBS_STREAMBOOSTMAX_TEXT_OUTPUT_MSG";
+        static public readonly string kOBS_STREAMBOOSTMAX_VIDEO_OUTPUT_MSG = "OBS_STREAMBOOSTMAX_VIDEO_OUTPUT_MSG";
         static public readonly string kENABLE_STARTUP_CHECK_OLD_DATA = "ENABLE_STARTUP_CHECK_OLD_DATA";
         static public readonly string kENABLE_SUB_OUTPUT = "ENABLE_SUB_OUTPUT";
         static public readonly string kENABLE_RESUB_OUTPUT = "ENABLE_RESUB_OUTPUT";
@@ -82,6 +84,7 @@ namespace DonateMonitor
         public static readonly string Type_Resub = "續訂";
         public static readonly string Type_SoundAlerts = "音效(SoundAlerts)";
         public static readonly string Type_StreamBoostMax_Text = "StreamBoostMax(訊息)";
+        public static readonly string Type_StreamBoostMax_Video = "StreamBoostMax(影片)";
 
         static public bool _bExit = false;
         static private string _sECPAY_LoginToken = null;
@@ -91,6 +94,7 @@ namespace DonateMonitor
         static private string _sStreamlabsKey = null;
         static private string _sSoundAlertsOverlayUrl = null;
         static private string _sStreamBoostMaxTextOverlayUrl = null;
+        static private string _sStreamBoostMaxVideoOverlayUrl = null;
         static readonly object _logLock = new object();
         public struct VARS
         {
@@ -105,6 +109,7 @@ namespace DonateMonitor
             public string _sStreamlabs_Sub_OBS_Msg;
             public string _sSoundAlerts_OBS_Msg;
             public string _sStreamBoostMax_Text_OBS_Msg;
+            public string _sStreamBoostMax_Video_OBS_Msg;
             public string _sCustom_ANON;
             public string _sCustom_Sub_Tier1;
             public string _sCustom_Sub_Tier2;
@@ -153,6 +158,11 @@ namespace DonateMonitor
         {
             get => Volatile.Read(ref _sStreamBoostMaxTextOverlayUrl);
             set => Interlocked.Exchange(ref _sStreamBoostMaxTextOverlayUrl, value);
+        }
+        public static string StreamBoostMax_Video_OverlayUrl
+        {
+            get => Volatile.Read(ref _sStreamBoostMaxVideoOverlayUrl);
+            set => Interlocked.Exchange(ref _sStreamBoostMaxVideoOverlayUrl, value);
         }
         public static int OBS_OutputMode
         {
@@ -208,6 +218,11 @@ namespace DonateMonitor
         {
             get => Volatile.Read(ref _VARS._sStreamBoostMax_Text_OBS_Msg);
             set => Interlocked.Exchange(ref _VARS._sStreamBoostMax_Text_OBS_Msg, value);
+        }
+        public static string StreamBoostMax_Video_OBS_Msg
+        {
+            get => Volatile.Read(ref _VARS._sStreamBoostMax_Video_OBS_Msg);
+            set => Interlocked.Exchange(ref _VARS._sStreamBoostMax_Video_OBS_Msg, value);
         }
         public static string Custom_ANON
         {
@@ -267,6 +282,7 @@ namespace DonateMonitor
             _rVARS._sStreamlabs_Sub_OBS_Msg = "{0} 新訂閱{1}個月({2})";
             _rVARS._sSoundAlerts_OBS_Msg = "{0}: {1}{2}";
             _rVARS._sStreamBoostMax_Text_OBS_Msg = "{0}: {1}{2}";
+            _rVARS._sStreamBoostMax_Video_OBS_Msg = "{0}: {1}{2}";
             _rVARS._sCustom_ANON = "匿名";
             _rVARS._sCustom_Sub_Tier1 = "層一";
             _rVARS._sCustom_Sub_Tier2 = "層二";
@@ -330,6 +346,10 @@ namespace DonateMonitor
             if (!string.IsNullOrEmpty(sVar))
                 StreamBoostMax_Text_OBS_Msg = sVar;
 
+            sVar = Setting.Read(Setting.kOBS_STREAMBOOSTMAX_VIDEO_OUTPUT_MSG);
+            if (!string.IsNullOrEmpty(sVar))
+                StreamBoostMax_Video_OBS_Msg = sVar;
+
             sVar = Setting.Read(Setting.kCUSTOM_ANON);
             if (!string.IsNullOrEmpty(sVar))
                 Custom_ANON = sVar;
@@ -379,6 +399,7 @@ namespace DonateMonitor
             Setting.Save(Setting.kOBS_STREAMLABS_SUB_OUTPUT_MSG, Streamlabs_Sub_OBS_Msg);
             Setting.Save(Setting.kOBS_SOUNDALERTS_OUTPUT_MSG, SoundAlerts_OBS_Msg);
             Setting.Save(Setting.kOBS_STREAMBOOSTMAX_TEXT_OUTPUT_MSG, StreamBoostMax_Text_OBS_Msg);
+            Setting.Save(Setting.kOBS_STREAMBOOSTMAX_VIDEO_OUTPUT_MSG, StreamBoostMax_Video_OBS_Msg);
             Setting.Save(Setting.kCUSTOM_ANON, Custom_ANON);
             Setting.Save(Setting.kCUSTOM_SUB_TIER1, Custom_Sub_Tier1);
             Setting.Save(Setting.kCUSTOM_SUB_TIER2, Custom_Sub_Tier2);
@@ -470,13 +491,17 @@ namespace DonateMonitor
         {
             return !string.IsNullOrEmpty(StreamBoostMax_Text_OverlayUrl);
         }
+        static public bool IsEnableStreamBoostMax_Video()
+        {
+            return !string.IsNullOrEmpty(StreamBoostMax_Video_OverlayUrl);
+        }
         static public bool IsEnableAnyService()
         {
-            return IsEnableECPAY() || IsEnableOPAY() || IsEnableStreamlabs() || IsEnableHiveBee() || IsEnableSoundAlerts() || IsEnableStreamBoostMax_Text();
+            return IsEnableECPAY() || IsEnableOPAY() || IsEnableStreamlabs() || IsEnableHiveBee() || IsEnableSoundAlerts() || IsEnableStreamBoostMax_Text() || IsEnableStreamBoostMax_Video();
         }
         static public bool IsEnableAllService()
         {
-            return IsEnableECPAY() && IsEnableOPAY() && IsEnableStreamlabs() && IsEnableHiveBee() && IsEnableSoundAlerts() && IsEnableStreamBoostMax_Text();
+            return IsEnableECPAY() && IsEnableOPAY() && IsEnableStreamlabs() && IsEnableHiveBee() && IsEnableSoundAlerts() && IsEnableStreamBoostMax_Text() && IsEnableStreamBoostMax_Video();
         }
         static public string FormatAmount(string amount)
         {

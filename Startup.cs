@@ -26,6 +26,7 @@ namespace DonateMonitor
             Tb_HiveBeeAPIURL.Text = Setting.Read(Setting.kHIVEBEE_KEY);
             Tb_SoundAlertsURL.Text = Setting.Read(Setting.kSOUNDALERTS_OVERLAY_URL);
             Tb_StreamBoostMaxTextURL.Text = Setting.Read(Setting.kSTREAMBOOSTMAX_TEXT_OVERLAY_URL);
+            Tb_StreamBoostMaxVideoURL.Text = Setting.Read(Setting.kSTREAMBOOSTMAX_VIDEO_OVERLAY_URL);
 
             // 檢查是否有舊紀錄
             try
@@ -201,6 +202,15 @@ namespace DonateMonitor
         }
         #endregion
 
+        #region StreamBoostMax_Video
+        private bool InitStreamBoostMax_Video(string sUrl)
+        {
+            Setting.Save(Setting.kSTREAMBOOSTMAX_VIDEO_OVERLAY_URL, sUrl);
+            Global.StreamBoostMax_Video_OverlayUrl = sUrl;
+            return true;
+        }
+        #endregion
+
         #region StreamLabs
         private bool InitStreamLabs(string sApiUrl)
         {
@@ -308,6 +318,21 @@ namespace DonateMonitor
             }
         }
 
+        private void BtInitStreamBoostMax_Video_Click()
+        {
+            var tb = Tb_StreamBoostMaxVideoURL;
+            string sUrl = tb.Text;
+            if (string.IsNullOrEmpty(sUrl))
+            {
+                return;
+            }
+
+            if (InitStreamBoostMax_Video(sUrl))
+            {
+                tb.Enabled = false;
+            }
+        }
+
         private void BtnEnterMonitor_Click(object sender, EventArgs e)
         {
             BtInitECPay_Click();
@@ -316,6 +341,7 @@ namespace DonateMonitor
             BtInitHiveBee_Click();
             BtInitSoundAlerts_Click();
             BtInitStreamBoostMax_Text_Click();
+            BtInitStreamBoostMax_Video_Click();
 
             if (!Global.IsEnableAnyService())
             {

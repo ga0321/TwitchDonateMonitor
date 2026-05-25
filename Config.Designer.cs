@@ -36,6 +36,9 @@
             this.Cb_EnableStartupCheckOldData = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.BtPreview_StreamBoostMax_Video = new System.Windows.Forms.Button();
+            this.Tb_Msg_StreamBoostMax_Video_Msg = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.BtPreview_StreamBoostMax_Text = new System.Windows.Forms.Button();
             this.Tb_Msg_StreamBoostMax_Text_Msg = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
@@ -176,6 +179,9 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.BtPreview_StreamBoostMax_Video);
+            this.groupBox2.Controls.Add(this.Tb_Msg_StreamBoostMax_Video_Msg);
+            this.groupBox2.Controls.Add(this.label18);
             this.groupBox2.Controls.Add(this.BtPreview_StreamBoostMax_Text);
             this.groupBox2.Controls.Add(this.Tb_Msg_StreamBoostMax_Text_Msg);
             this.groupBox2.Controls.Add(this.label17);
@@ -208,10 +214,39 @@
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Location = new System.Drawing.Point(12, 127);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(699, 475);
+            this.groupBox2.Size = new System.Drawing.Size(699, 524);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "OBS輸出設定";
+            // 
+            // BtPreview_StreamBoostMax_Video
+            // 
+            this.BtPreview_StreamBoostMax_Video.Font = new System.Drawing.Font("Noto Sans TC", 12F);
+            this.BtPreview_StreamBoostMax_Video.Location = new System.Drawing.Point(631, 462);
+            this.BtPreview_StreamBoostMax_Video.Name = "BtPreview_StreamBoostMax_Video";
+            this.BtPreview_StreamBoostMax_Video.Size = new System.Drawing.Size(62, 35);
+            this.BtPreview_StreamBoostMax_Video.TabIndex = 35;
+            this.BtPreview_StreamBoostMax_Video.Text = "預覽";
+            this.BtPreview_StreamBoostMax_Video.UseVisualStyleBackColor = true;
+            this.BtPreview_StreamBoostMax_Video.Click += new System.EventHandler(this.BtPreview_StreamBoostMax_Video_Click);
+            // 
+            // Tb_Msg_StreamBoostMax_Video_Msg
+            // 
+            this.Tb_Msg_StreamBoostMax_Video_Msg.Font = new System.Drawing.Font("Noto Sans TC", 14F);
+            this.Tb_Msg_StreamBoostMax_Video_Msg.Location = new System.Drawing.Point(174, 462);
+            this.Tb_Msg_StreamBoostMax_Video_Msg.Name = "Tb_Msg_StreamBoostMax_Video_Msg";
+            this.Tb_Msg_StreamBoostMax_Video_Msg.Size = new System.Drawing.Size(451, 48);
+            this.Tb_Msg_StreamBoostMax_Video_Msg.TabIndex = 34;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Noto Sans TC", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label18.Location = new System.Drawing.Point(3, 472);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(263, 26);
+            this.label18.TabIndex = 33;
+            this.label18.Text = "StreamBoostMax(影片) 輸出：";
             // 
             // BtPreview_StreamBoostMax_Text
             // 
@@ -506,7 +541,7 @@
             // Bt_Save
             // 
             this.Bt_Save.Font = new System.Drawing.Font("Noto Sans TC", 14F);
-            this.Bt_Save.Location = new System.Drawing.Point(12, 817);
+            this.Bt_Save.Location = new System.Drawing.Point(12, 866);
             this.Bt_Save.Name = "Bt_Save";
             this.Bt_Save.Size = new System.Drawing.Size(699, 46);
             this.Bt_Save.TabIndex = 5;
@@ -528,7 +563,7 @@
             this.groupBox3.Controls.Add(this.label8);
             this.groupBox3.Controls.Add(this.Tb_Msg_Custom_Anon);
             this.groupBox3.Controls.Add(this.label7);
-            this.groupBox3.Location = new System.Drawing.Point(12, 608);
+            this.groupBox3.Location = new System.Drawing.Point(12, 657);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(699, 203);
             this.groupBox3.TabIndex = 6;
@@ -646,7 +681,7 @@
             // BtReset
             // 
             this.BtReset.Font = new System.Drawing.Font("Noto Sans TC", 14F);
-            this.BtReset.Location = new System.Drawing.Point(12, 869);
+            this.BtReset.Location = new System.Drawing.Point(12, 918);
             this.BtReset.Name = "BtReset";
             this.BtReset.Size = new System.Drawing.Size(699, 46);
             this.BtReset.TabIndex = 7;
@@ -658,7 +693,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 26F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(723, 927);
+            this.ClientSize = new System.Drawing.Size(723, 973);
             this.Controls.Add(this.BtReset);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.Bt_Save);
@@ -735,5 +770,8 @@
         private System.Windows.Forms.Button BtPreview_StreamBoostMax_Text;
         private System.Windows.Forms.TextBox Tb_Msg_StreamBoostMax_Text_Msg;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Button BtPreview_StreamBoostMax_Video;
+        private System.Windows.Forms.TextBox Tb_Msg_StreamBoostMax_Video_Msg;
+        private System.Windows.Forms.Label label18;
     }
 }

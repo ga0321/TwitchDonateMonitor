@@ -41,6 +41,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.Tb_StreamBoostMaxTextURL = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.Tb_StreamBoostMaxVideoURL = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -65,7 +67,7 @@
             // BtnEnterMonitor
             // 
             this.BtnEnterMonitor.Font = new System.Drawing.Font("Noto Sans TC", 9F);
-            this.BtnEnterMonitor.Location = new System.Drawing.Point(12, 207);
+            this.BtnEnterMonitor.Location = new System.Drawing.Point(12, 242);
             this.BtnEnterMonitor.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.BtnEnterMonitor.Name = "BtnEnterMonitor";
             this.BtnEnterMonitor.Size = new System.Drawing.Size(1327, 35);
@@ -168,12 +170,33 @@
             this.label6.Size = new System.Drawing.Size(386, 40);
             this.label6.TabIndex = 11;
             this.label6.Text = "StreamBoostMax 訊息網址：";
-            // 
+            //
+            // Tb_StreamBoostMaxVideoURL
+            //
+            this.Tb_StreamBoostMaxVideoURL.Font = new System.Drawing.Font("Noto Sans TC", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Tb_StreamBoostMaxVideoURL.Location = new System.Drawing.Point(283, 207);
+            this.Tb_StreamBoostMaxVideoURL.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.Tb_StreamBoostMaxVideoURL.Name = "Tb_StreamBoostMaxVideoURL";
+            this.Tb_StreamBoostMaxVideoURL.Size = new System.Drawing.Size(1050, 34);
+            this.Tb_StreamBoostMaxVideoURL.TabIndex = 7;
+            //
+            // label7
+            //
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Noto Sans TC", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label7.Location = new System.Drawing.Point(23, 205);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(386, 40);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "StreamBoostMax 影片網址：";
+            //
             // Startup
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 26F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1345, 250);
+            this.ClientSize = new System.Drawing.Size(1345, 285);
+            this.Controls.Add(this.Tb_StreamBoostMaxVideoURL);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.Tb_StreamBoostMaxTextURL);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.Tb_SoundAlertsURL);
@@ -217,6 +240,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox Tb_StreamBoostMaxTextURL;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox Tb_StreamBoostMaxVideoURL;
+        private System.Windows.Forms.Label label7;
     }
 }
 
