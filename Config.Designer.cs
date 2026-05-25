@@ -34,6 +34,8 @@
             this.Cb_EnableSubOutput = new System.Windows.Forms.CheckBox();
             this.Cb_EnableResubOutput = new System.Windows.Forms.CheckBox();
             this.Cb_EnableStartupCheckOldData = new System.Windows.Forms.CheckBox();
+            this.label_MinBitsAmount = new System.Windows.Forms.Label();
+            this.Nud_MinBitsAmount = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.BtPreview_StreamBoostMax_Video = new System.Windows.Forms.Button();
@@ -84,6 +86,7 @@
             this.Tb_Msg_Custom_Anon = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.BtReset = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.Nud_MinBitsAmount)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -162,8 +165,33 @@
             this.Cb_EnableStartupCheckOldData.Text = "啟動時檢查舊資料";
             this.Cb_EnableStartupCheckOldData.UseVisualStyleBackColor = true;
             // 
+            // label_MinBitsAmount
+            // 
+            this.label_MinBitsAmount.AutoSize = true;
+            this.label_MinBitsAmount.Font = new System.Drawing.Font("Noto Sans TC", 14F);
+            this.label_MinBitsAmount.Location = new System.Drawing.Point(24, 112);
+            this.label_MinBitsAmount.Name = "label_MinBitsAmount";
+            this.label_MinBitsAmount.Size = new System.Drawing.Size(359, 40);
+            this.label_MinBitsAmount.TabIndex = 6;
+            this.label_MinBitsAmount.Text = "小奇點達到才顯示於 OBS：";
+            // 
+            // Nud_MinBitsAmount
+            // 
+            this.Nud_MinBitsAmount.Font = new System.Drawing.Font("Noto Sans TC", 14F);
+            this.Nud_MinBitsAmount.Location = new System.Drawing.Point(268, 109);
+            this.Nud_MinBitsAmount.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.Nud_MinBitsAmount.Name = "Nud_MinBitsAmount";
+            this.Nud_MinBitsAmount.Size = new System.Drawing.Size(140, 48);
+            this.Nud_MinBitsAmount.TabIndex = 7;
+            // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label_MinBitsAmount);
+            this.groupBox1.Controls.Add(this.Nud_MinBitsAmount);
             this.groupBox1.Controls.Add(this.Cb_EnableStartupCheckOldData);
             this.groupBox1.Controls.Add(this.Cb_EnableResubOutput);
             this.groupBox1.Controls.Add(this.Cb_EnableSubOutput);
@@ -172,7 +200,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(699, 109);
+            this.groupBox1.Size = new System.Drawing.Size(699, 160);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "普通設定";
@@ -212,7 +240,7 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.Tb_Msg_ECPay_Msg);
             this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Location = new System.Drawing.Point(12, 127);
+            this.groupBox2.Location = new System.Drawing.Point(12, 178);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(699, 524);
             this.groupBox2.TabIndex = 4;
@@ -541,7 +569,7 @@
             // Bt_Save
             // 
             this.Bt_Save.Font = new System.Drawing.Font("Noto Sans TC", 14F);
-            this.Bt_Save.Location = new System.Drawing.Point(12, 866);
+            this.Bt_Save.Location = new System.Drawing.Point(12, 917);
             this.Bt_Save.Name = "Bt_Save";
             this.Bt_Save.Size = new System.Drawing.Size(699, 46);
             this.Bt_Save.TabIndex = 5;
@@ -563,7 +591,7 @@
             this.groupBox3.Controls.Add(this.label8);
             this.groupBox3.Controls.Add(this.Tb_Msg_Custom_Anon);
             this.groupBox3.Controls.Add(this.label7);
-            this.groupBox3.Location = new System.Drawing.Point(12, 657);
+            this.groupBox3.Location = new System.Drawing.Point(12, 708);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(699, 203);
             this.groupBox3.TabIndex = 6;
@@ -681,7 +709,7 @@
             // BtReset
             // 
             this.BtReset.Font = new System.Drawing.Font("Noto Sans TC", 14F);
-            this.BtReset.Location = new System.Drawing.Point(12, 918);
+            this.BtReset.Location = new System.Drawing.Point(12, 969);
             this.BtReset.Name = "BtReset";
             this.BtReset.Size = new System.Drawing.Size(699, 46);
             this.BtReset.TabIndex = 7;
@@ -693,7 +721,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 26F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(723, 973);
+            this.ClientSize = new System.Drawing.Size(723, 1024);
             this.Controls.Add(this.BtReset);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.Bt_Save);
@@ -705,6 +733,7 @@
             this.Name = "Config";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Config";
+            ((System.ComponentModel.ISupportInitialize)(this.Nud_MinBitsAmount)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -758,6 +787,8 @@
         private System.Windows.Forms.CheckBox Cb_EnableSubOutput;
         private System.Windows.Forms.CheckBox Cb_EnableResubOutput;
         private System.Windows.Forms.CheckBox Cb_EnableStartupCheckOldData;
+        private System.Windows.Forms.Label label_MinBitsAmount;
+        private System.Windows.Forms.NumericUpDown Nud_MinBitsAmount;
         private System.Windows.Forms.Button BtPreview_Streamlabs_Sub;
         private System.Windows.Forms.TextBox Tb_Msg_Streamlabs_Sub_Msg;
         private System.Windows.Forms.Label label14;

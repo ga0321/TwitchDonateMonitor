@@ -59,6 +59,7 @@ namespace DonateMonitor
             Cb_EnableStartupCheckOldData.Checked = Global.EnableStartupCheckOldData;
             Cb_EnableSubOutput.Checked = Global.EnableSubOutput;
             Cb_EnableResubOutput.Checked = Global.EnableResubOutput;
+            try { Nud_MinBitsAmount.Value = Math.Max(0, Math.Min(Global.MinDisplayBitsAmount, (int)Nud_MinBitsAmount.Maximum)); } catch { Nud_MinBitsAmount.Value = 0; }
         }
 
         private void SaveConfig()
@@ -88,6 +89,7 @@ namespace DonateMonitor
             Global.EnableStartupCheckOldData = Cb_EnableStartupCheckOldData.Checked;
             Global.EnableSubOutput = Cb_EnableSubOutput.Checked;
             Global.EnableResubOutput = Cb_EnableResubOutput.Checked;
+            Global.MinDisplayBitsAmount = (int)Nud_MinBitsAmount.Value;
         }
 
         private void SaveSettings()
@@ -104,6 +106,8 @@ namespace DonateMonitor
         private void Bt_Save_Click(object sender, EventArgs e)
         {
             SaveSettings();
+            // 重新計算 OBS 輸出（門檻可能變了）
+            try { _monitor?.ReloadObsData(); } catch { }
             Close();
         }
 

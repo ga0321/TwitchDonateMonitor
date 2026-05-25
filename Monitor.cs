@@ -193,10 +193,13 @@ namespace DonateMonitor
             }
 
             // 統一輸出合併後的小奇點 OBS 行
+            int minBits = Global.MinDisplayBitsAmount;
             foreach (var kvp in bitsTotals)
             {
                 string account = kvp.Key;
                 decimal total = kvp.Value;
+                // 未達門檻就不顯示
+                if (minBits > 0 && total < minBits) continue;
                 string displayName;
                 if (!bitsDisplayName.TryGetValue(account, out displayName) || string.IsNullOrEmpty(displayName))
                     displayName = account;
@@ -560,6 +563,19 @@ namespace DonateMonitor
             // 小奇點 (nType==3) 必須以帳號為 key，才能讓 Streamlabs Bits 與 SoundAlerts(bits) 共用同一行
             string obsKeyBase = !string.IsNullOrEmpty(acc) ? acc : name;
             string obsKey = $"{obsKeyBase}|{type}|{subplan ?? ""}";
+
+            // 小奇點門檻：未達設定值就不輸出到 OBS
+            if (nType == 3 && Global.MinDisplayBitsAmount > 0)
+            {
+                decimal.TryParse(amount, out decimal amt);
+                if (amt < Global.MinDisplayBitsAmount)
+                {
+                    _obsDict.TryRemove(obsKey, out _);
+                    _dataGridDirty = true;
+                    return;
+                }
+            }
+
             _obsDict[obsKey] = obsOutput;
             // 標記資料管理頁需要刷新
             _dataGridDirty = true;
@@ -988,7 +1004,7 @@ namespace DonateMonitor
             }
         }
 
-        private void ReloadObsData()
+        public void ReloadObsData()
         {
             _obsDict.Clear();
             LoadCumulativeDataFromDB();

@@ -40,6 +40,7 @@ namespace DonateMonitor
         static public readonly string kENABLE_STARTUP_CHECK_OLD_DATA = "ENABLE_STARTUP_CHECK_OLD_DATA";
         static public readonly string kENABLE_SUB_OUTPUT = "ENABLE_SUB_OUTPUT";
         static public readonly string kENABLE_RESUB_OUTPUT = "ENABLE_RESUB_OUTPUT";
+        static public readonly string kMIN_DISPLAY_BITS_AMOUNT = "MIN_DISPLAY_BITS_AMOUNT";
         static public string Read(string sKey)
         {
             try
@@ -119,6 +120,7 @@ namespace DonateMonitor
             public bool _bEnableStartupCheckOldData;
             public bool _bEnableSubOutput;
             public bool _bEnableResubOutput;
+            public int _nMinDisplayBitsAmount;
         }
         static VARS _rVARS = new VARS();
         public static VARS _VARS = new VARS();
@@ -269,6 +271,11 @@ namespace DonateMonitor
             get => Volatile.Read(ref _VARS._bEnableResubOutput);
             set => Volatile.Write(ref _VARS._bEnableResubOutput, value);
         }
+        public static int MinDisplayBitsAmount
+        {
+            get => Volatile.Read(ref _VARS._nMinDisplayBitsAmount);
+            set => Interlocked.Exchange(ref _VARS._nMinDisplayBitsAmount, value);
+        }
         static public void InitSettings()
         {
             _rVARS._nOBS_OutputMode = 0;
@@ -292,6 +299,7 @@ namespace DonateMonitor
             _rVARS._bEnableStartupCheckOldData = true;
             _rVARS._bEnableSubOutput = true;
             _rVARS._bEnableResubOutput = true;
+            _rVARS._nMinDisplayBitsAmount = 0;
 
             _VARS = _rVARS;
         }
@@ -385,6 +393,10 @@ namespace DonateMonitor
             sVar = Setting.Read(Setting.kENABLE_RESUB_OUTPUT);
             if (!string.IsNullOrEmpty(sVar))
                 EnableResubOutput = sVar.Equals("1");
+
+            sVar = Setting.Read(Setting.kMIN_DISPLAY_BITS_AMOUNT);
+            if (!string.IsNullOrEmpty(sVar) && int.TryParse(sVar, out int nMin) && nMin >= 0)
+                MinDisplayBitsAmount = nMin;
         }
         static public void SaveSettings()
         {
@@ -409,6 +421,7 @@ namespace DonateMonitor
             Setting.Save(Setting.kENABLE_STARTUP_CHECK_OLD_DATA, EnableStartupCheckOldData ? "1" : "0");
             Setting.Save(Setting.kENABLE_SUB_OUTPUT, EnableSubOutput ? "1" : "0");
             Setting.Save(Setting.kENABLE_RESUB_OUTPUT, EnableResubOutput ? "1" : "0");
+            Setting.Save(Setting.kMIN_DISPLAY_BITS_AMOUNT, MinDisplayBitsAmount.ToString());
         }
         #endregion
         static public void WriteErrorLog(string msg)
