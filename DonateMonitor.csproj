@@ -256,6 +256,7 @@
     <Compile Include="ServiceListener\Streamlabs.cs" />
     <Compile Include="ServiceListener\OPay.cs" />
     <Compile Include="ServiceListener\ECPay.cs" />
+    <Compile Include="ServiceListener\StreamBoostMax_Text.cs" />
     <Compile Include="Plugin\IPlugin.cs" />
     <Compile Include="Plugin\SoundAlerts.cs" />
     <Compile Include="ServiceListener\IServiceListener.cs" />

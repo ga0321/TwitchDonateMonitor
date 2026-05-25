@@ -25,6 +25,7 @@ namespace DonateMonitor
         private readonly ServiceListener.Streamlabs _servicesStreamlabs = new ServiceListener.Streamlabs();
         private readonly ServiceListener.HiveBee _servicesHiveBee = new ServiceListener.HiveBee();
         private readonly Plugin.SoundAlerts _pluginSoundAlerts = new Plugin.SoundAlerts();
+        private readonly ServiceListener.StreamBoostMax_Text _servicesStreamBoostMaxText = new ServiceListener.StreamBoostMax_Text();
         private volatile bool _dataGridDirty = false;
         private bool _dataOperationInProgress = false;
         private volatile bool _dataSyncing = false;
@@ -172,6 +173,10 @@ namespace DonateMonitor
                 {
                     // 其他 cost_type (例如 channel_points)
                     obsOutput = string.Format(Global.SoundAlerts_OBS_Msg, item.Account, formated_amount, item.Currency, item.SubPlan);
+                }
+                else if (item.Type == Global.Type_StreamBoostMax_Text)
+                {
+                    obsOutput = string.Format(Global.StreamBoostMax_Text_OBS_Msg, item.DisplayName, formated_amount, item.Currency, item.SubPlan);
                 }
                 else
                 {
@@ -414,6 +419,23 @@ namespace DonateMonitor
                 AppendLog(8, name, totalAmount.ToString(), "", costType, null, isPreview);
             }
         }
+        public void AppendLogFromStreamBoostMax_Text(string acc, string displayName, string amount, string currency, string msg, bool isPreview = false)
+        {
+            if (!isPreview && _dataOperationInProgress) { _pendingEvents.Enqueue(() => AppendLogFromStreamBoostMax_Text(acc, displayName, amount, currency, msg)); return; }
+            string type = Global.Type_StreamBoostMax_Text;
+            decimal donateAmount = 0;
+            decimal.TryParse(amount, out donateAmount);
+
+            if (!isPreview)
+            {
+                var nowFull = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
+                DonateDB.Write(nowFull, type, acc, displayName, donateAmount, currency, msg, null);
+            }
+
+            decimal totalAmount = isPreview ? donateAmount : DonateDB.GetTotalAmount(acc, type);
+
+            AppendLog(9, displayName, totalAmount.ToString(), msg, currency, null, isPreview, acc);
+        }
         private void AppendLog(int nType, string name, string amount, string msg, string currency = "TWD", string subplan = null, bool isPreview = false, string acc = null)
         {
             if (string.IsNullOrEmpty(msg))
@@ -422,7 +444,12 @@ namespace DonateMonitor
             string type;
             string obsMsg;
             string displayName = null;
-            if (nType == 8)
+            if (nType == 9)
+            {
+                type = Global.Type_StreamBoostMax_Text;
+                obsMsg = Global.StreamBoostMax_Text_OBS_Msg;
+            }
+            else if (nType == 8)
             {
                 type = Global.Type_SoundAlerts;
                 obsMsg = Global.SoundAlerts_OBS_Msg;
@@ -474,7 +501,7 @@ namespace DonateMonitor
             }
 
             var nowFull = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
-            var now = DateTime.Now.ToString("MM-dd HH:mm:ss");
+            var now = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             string formated_amount = Global.FormatAmount(amount);
             string logLine = $"[{now}][{type}] ";
             string extLogLine;
@@ -550,6 +577,13 @@ namespace DonateMonitor
                 lbSoundAlerts_Status.Text = $"SoundAlerts 狀態：{(bActive ? "有效" : "無效")}";
             });
         }
+        public void SetActiveStreamBoostMax_Text(bool bActive)
+        {
+            SafeUpdateUI(() =>
+            {
+                lbStreamBoostMax_Text_Status.Text = $"StreamBoostMax(訊息) 狀態：{(bActive ? "有效" : "無效")}";
+            });
+        }
         private void SafeUpdateUI(Action action)
         {
             if (IsDisposed) return;
@@ -578,6 +612,10 @@ namespace DonateMonitor
             if (Global.IsEnableSoundAlerts())
             {
                 _ = _pluginSoundAlerts.StartAsync(this, _ctsServices.Token);
+            }
+            if (Global.IsEnableStreamBoostMax_Text())
+            {
+                _ = _servicesStreamBoostMaxText.StartAsync(this, _ctsServices.Token);
             }
         }
         private async Task UninitServices()
@@ -676,7 +714,8 @@ namespace DonateMonitor
                     Global.Type_Resub,
                     Global.Custom_Sub_Gift,
                     Global.Custom_Bits,
-                    Global.Type_SoundAlerts
+                    Global.Type_SoundAlerts,
+                    Global.Type_StreamBoostMax_Text
                 });
 
                 dgvDonateData.Columns.Insert(typeColumnIndex, typeComboColumn);

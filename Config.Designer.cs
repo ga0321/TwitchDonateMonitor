@@ -36,15 +36,21 @@
             this.Cb_EnableStartupCheckOldData = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.BtPreview_HiveBee = new System.Windows.Forms.Button();
-            this.Tb_Msg_HiveBee_Msg = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
+            this.BtPreview_StreamBoostMax_Text = new System.Windows.Forms.Button();
+            this.Tb_Msg_StreamBoostMax_Text_Msg = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.BtPreview_SoundAlerts = new System.Windows.Forms.Button();
+            this.Tb_Msg_SoundAlerts_Msg = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.BtPreview_Streamlabs_Resub = new System.Windows.Forms.Button();
             this.Tb_Msg_Streamlabs_Resub_Msg = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.BtPreview_Streamlabs_Sub = new System.Windows.Forms.Button();
             this.Tb_Msg_Streamlabs_Sub_Msg = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
+            this.BtPreview_HiveBee = new System.Windows.Forms.Button();
+            this.Tb_Msg_HiveBee_Msg = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.BtPreview_Streamlabs_Bits = new System.Windows.Forms.Button();
             this.BtPreview_Streamlabs_SubGift = new System.Windows.Forms.Button();
             this.BtPreview_Streamlabs_Paypal = new System.Windows.Forms.Button();
@@ -75,9 +81,6 @@
             this.Tb_Msg_Custom_Anon = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.BtReset = new System.Windows.Forms.Button();
-            this.BtPreview_SoundAlerts = new System.Windows.Forms.Button();
-            this.Tb_Msg_SoundAlerts_Msg = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -89,7 +92,7 @@
             this.label1.Font = new System.Drawing.Font("Noto Sans TC", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label1.Location = new System.Drawing.Point(19, 26);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(182, 27);
+            this.label1.Size = new System.Drawing.Size(279, 42);
             this.label1.TabIndex = 0;
             this.label1.Text = "OBS檔案輸出模式：";
             // 
@@ -99,7 +102,7 @@
             this.RBt_ObsOutputMode_Single.Font = new System.Drawing.Font("Noto Sans TC", 14F);
             this.RBt_ObsOutputMode_Single.Location = new System.Drawing.Point(319, 24);
             this.RBt_ObsOutputMode_Single.Name = "RBt_ObsOutputMode_Single";
-            this.RBt_ObsOutputMode_Single.Size = new System.Drawing.Size(256, 31);
+            this.RBt_ObsOutputMode_Single.Size = new System.Drawing.Size(377, 44);
             this.RBt_ObsOutputMode_Single.TabIndex = 2;
             this.RBt_ObsOutputMode_Single.TabStop = true;
             this.RBt_ObsOutputMode_Single.Text = "單行模式 (A: 100T B: 100T)";
@@ -111,53 +114,53 @@
             this.RBt_ObsOutputMode_NextLine.Font = new System.Drawing.Font("Noto Sans TC", 14F);
             this.RBt_ObsOutputMode_NextLine.Location = new System.Drawing.Point(207, 24);
             this.RBt_ObsOutputMode_NextLine.Name = "RBt_ObsOutputMode_NextLine";
-            this.RBt_ObsOutputMode_NextLine.Size = new System.Drawing.Size(106, 31);
+            this.RBt_ObsOutputMode_NextLine.Size = new System.Drawing.Size(154, 44);
             this.RBt_ObsOutputMode_NextLine.TabIndex = 1;
             this.RBt_ObsOutputMode_NextLine.TabStop = true;
             this.RBt_ObsOutputMode_NextLine.Text = "換行模式";
             this.RBt_ObsOutputMode_NextLine.UseVisualStyleBackColor = true;
-            //
+            // 
             // Cb_EnableSubOutput
-            //
+            // 
             this.Cb_EnableSubOutput.AutoSize = true;
             this.Cb_EnableSubOutput.Checked = true;
             this.Cb_EnableSubOutput.CheckState = System.Windows.Forms.CheckState.Checked;
             this.Cb_EnableSubOutput.Font = new System.Drawing.Font("Noto Sans TC", 14F);
             this.Cb_EnableSubOutput.Location = new System.Drawing.Point(24, 61);
             this.Cb_EnableSubOutput.Name = "Cb_EnableSubOutput";
-            this.Cb_EnableSubOutput.Size = new System.Drawing.Size(138, 31);
+            this.Cb_EnableSubOutput.Size = new System.Drawing.Size(183, 44);
             this.Cb_EnableSubOutput.TabIndex = 3;
             this.Cb_EnableSubOutput.Text = "輸出新訂閱";
             this.Cb_EnableSubOutput.UseVisualStyleBackColor = true;
-            //
+            // 
             // Cb_EnableResubOutput
-            //
+            // 
             this.Cb_EnableResubOutput.AutoSize = true;
             this.Cb_EnableResubOutput.Checked = true;
             this.Cb_EnableResubOutput.CheckState = System.Windows.Forms.CheckState.Checked;
             this.Cb_EnableResubOutput.Font = new System.Drawing.Font("Noto Sans TC", 14F);
             this.Cb_EnableResubOutput.Location = new System.Drawing.Point(180, 61);
             this.Cb_EnableResubOutput.Name = "Cb_EnableResubOutput";
-            this.Cb_EnableResubOutput.Size = new System.Drawing.Size(119, 31);
+            this.Cb_EnableResubOutput.Size = new System.Drawing.Size(155, 44);
             this.Cb_EnableResubOutput.TabIndex = 4;
             this.Cb_EnableResubOutput.Text = "輸出續訂";
             this.Cb_EnableResubOutput.UseVisualStyleBackColor = true;
-            //
+            // 
             // Cb_EnableStartupCheckOldData
-            //
+            // 
             this.Cb_EnableStartupCheckOldData.AutoSize = true;
             this.Cb_EnableStartupCheckOldData.Checked = true;
             this.Cb_EnableStartupCheckOldData.CheckState = System.Windows.Forms.CheckState.Checked;
             this.Cb_EnableStartupCheckOldData.Font = new System.Drawing.Font("Noto Sans TC", 14F);
             this.Cb_EnableStartupCheckOldData.Location = new System.Drawing.Point(315, 61);
             this.Cb_EnableStartupCheckOldData.Name = "Cb_EnableStartupCheckOldData";
-            this.Cb_EnableStartupCheckOldData.Size = new System.Drawing.Size(214, 31);
+            this.Cb_EnableStartupCheckOldData.Size = new System.Drawing.Size(267, 44);
             this.Cb_EnableStartupCheckOldData.TabIndex = 5;
             this.Cb_EnableStartupCheckOldData.Text = "啟動時檢查舊資料";
             this.Cb_EnableStartupCheckOldData.UseVisualStyleBackColor = true;
-            //
+            // 
             // groupBox1
-            //
+            // 
             this.groupBox1.Controls.Add(this.Cb_EnableStartupCheckOldData);
             this.groupBox1.Controls.Add(this.Cb_EnableResubOutput);
             this.groupBox1.Controls.Add(this.Cb_EnableSubOutput);
@@ -170,9 +173,12 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "普通設定";
-            //
+            // 
             // groupBox2
-            //
+            // 
+            this.groupBox2.Controls.Add(this.BtPreview_StreamBoostMax_Text);
+            this.groupBox2.Controls.Add(this.Tb_Msg_StreamBoostMax_Text_Msg);
+            this.groupBox2.Controls.Add(this.label17);
             this.groupBox2.Controls.Add(this.BtPreview_SoundAlerts);
             this.groupBox2.Controls.Add(this.Tb_Msg_SoundAlerts_Msg);
             this.groupBox2.Controls.Add(this.label16);
@@ -202,10 +208,126 @@
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Location = new System.Drawing.Point(12, 127);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(699, 430);
+            this.groupBox2.Size = new System.Drawing.Size(699, 475);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "OBS輸出設定";
+            // 
+            // BtPreview_StreamBoostMax_Text
+            // 
+            this.BtPreview_StreamBoostMax_Text.Font = new System.Drawing.Font("Noto Sans TC", 12F);
+            this.BtPreview_StreamBoostMax_Text.Location = new System.Drawing.Point(631, 420);
+            this.BtPreview_StreamBoostMax_Text.Name = "BtPreview_StreamBoostMax_Text";
+            this.BtPreview_StreamBoostMax_Text.Size = new System.Drawing.Size(62, 35);
+            this.BtPreview_StreamBoostMax_Text.TabIndex = 32;
+            this.BtPreview_StreamBoostMax_Text.Text = "預覽";
+            this.BtPreview_StreamBoostMax_Text.UseVisualStyleBackColor = true;
+            this.BtPreview_StreamBoostMax_Text.Click += new System.EventHandler(this.BtPreview_StreamBoostMax_Text_Click);
+            // 
+            // Tb_Msg_StreamBoostMax_Text_Msg
+            // 
+            this.Tb_Msg_StreamBoostMax_Text_Msg.Font = new System.Drawing.Font("Noto Sans TC", 14F);
+            this.Tb_Msg_StreamBoostMax_Text_Msg.Location = new System.Drawing.Point(174, 420);
+            this.Tb_Msg_StreamBoostMax_Text_Msg.Name = "Tb_Msg_StreamBoostMax_Text_Msg";
+            this.Tb_Msg_StreamBoostMax_Text_Msg.Size = new System.Drawing.Size(451, 48);
+            this.Tb_Msg_StreamBoostMax_Text_Msg.TabIndex = 31;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Noto Sans TC", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label17.Location = new System.Drawing.Point(3, 430);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(263, 26);
+            this.label17.TabIndex = 30;
+            this.label17.Text = "StreamBoostMax(訊息) 輸出：";
+            // 
+            // BtPreview_SoundAlerts
+            // 
+            this.BtPreview_SoundAlerts.Font = new System.Drawing.Font("Noto Sans TC", 12F);
+            this.BtPreview_SoundAlerts.Location = new System.Drawing.Point(631, 379);
+            this.BtPreview_SoundAlerts.Name = "BtPreview_SoundAlerts";
+            this.BtPreview_SoundAlerts.Size = new System.Drawing.Size(62, 35);
+            this.BtPreview_SoundAlerts.TabIndex = 29;
+            this.BtPreview_SoundAlerts.Text = "預覽";
+            this.BtPreview_SoundAlerts.UseVisualStyleBackColor = true;
+            this.BtPreview_SoundAlerts.Click += new System.EventHandler(this.BtPreview_SoundAlerts_Click);
+            // 
+            // Tb_Msg_SoundAlerts_Msg
+            // 
+            this.Tb_Msg_SoundAlerts_Msg.Font = new System.Drawing.Font("Noto Sans TC", 14F);
+            this.Tb_Msg_SoundAlerts_Msg.Location = new System.Drawing.Point(174, 379);
+            this.Tb_Msg_SoundAlerts_Msg.Name = "Tb_Msg_SoundAlerts_Msg";
+            this.Tb_Msg_SoundAlerts_Msg.Size = new System.Drawing.Size(451, 48);
+            this.Tb_Msg_SoundAlerts_Msg.TabIndex = 28;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Noto Sans TC", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label16.Location = new System.Drawing.Point(37, 388);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(191, 29);
+            this.label16.TabIndex = 27;
+            this.label16.Text = "SoundAlerts 輸出：";
+            // 
+            // BtPreview_Streamlabs_Resub
+            // 
+            this.BtPreview_Streamlabs_Resub.Font = new System.Drawing.Font("Noto Sans TC", 12F);
+            this.BtPreview_Streamlabs_Resub.Location = new System.Drawing.Point(631, 338);
+            this.BtPreview_Streamlabs_Resub.Name = "BtPreview_Streamlabs_Resub";
+            this.BtPreview_Streamlabs_Resub.Size = new System.Drawing.Size(62, 35);
+            this.BtPreview_Streamlabs_Resub.TabIndex = 24;
+            this.BtPreview_Streamlabs_Resub.Text = "預覽";
+            this.BtPreview_Streamlabs_Resub.UseVisualStyleBackColor = true;
+            this.BtPreview_Streamlabs_Resub.Click += new System.EventHandler(this.BtPreview_Streamlabs_Resub_Click);
+            // 
+            // Tb_Msg_Streamlabs_Resub_Msg
+            // 
+            this.Tb_Msg_Streamlabs_Resub_Msg.Font = new System.Drawing.Font("Noto Sans TC", 14F);
+            this.Tb_Msg_Streamlabs_Resub_Msg.Location = new System.Drawing.Point(174, 338);
+            this.Tb_Msg_Streamlabs_Resub_Msg.Name = "Tb_Msg_Streamlabs_Resub_Msg";
+            this.Tb_Msg_Streamlabs_Resub_Msg.Size = new System.Drawing.Size(451, 48);
+            this.Tb_Msg_Streamlabs_Resub_Msg.TabIndex = 25;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Noto Sans TC", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label15.Location = new System.Drawing.Point(70, 341);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(163, 42);
+            this.label15.TabIndex = 26;
+            this.label15.Text = "續訂輸出：";
+            // 
+            // BtPreview_Streamlabs_Sub
+            // 
+            this.BtPreview_Streamlabs_Sub.Font = new System.Drawing.Font("Noto Sans TC", 12F);
+            this.BtPreview_Streamlabs_Sub.Location = new System.Drawing.Point(631, 297);
+            this.BtPreview_Streamlabs_Sub.Name = "BtPreview_Streamlabs_Sub";
+            this.BtPreview_Streamlabs_Sub.Size = new System.Drawing.Size(62, 35);
+            this.BtPreview_Streamlabs_Sub.TabIndex = 21;
+            this.BtPreview_Streamlabs_Sub.Text = "預覽";
+            this.BtPreview_Streamlabs_Sub.UseVisualStyleBackColor = true;
+            this.BtPreview_Streamlabs_Sub.Click += new System.EventHandler(this.BtPreview_Streamlabs_Sub_Click);
+            // 
+            // Tb_Msg_Streamlabs_Sub_Msg
+            // 
+            this.Tb_Msg_Streamlabs_Sub_Msg.Font = new System.Drawing.Font("Noto Sans TC", 14F);
+            this.Tb_Msg_Streamlabs_Sub_Msg.Location = new System.Drawing.Point(174, 297);
+            this.Tb_Msg_Streamlabs_Sub_Msg.Name = "Tb_Msg_Streamlabs_Sub_Msg";
+            this.Tb_Msg_Streamlabs_Sub_Msg.Size = new System.Drawing.Size(451, 48);
+            this.Tb_Msg_Streamlabs_Sub_Msg.TabIndex = 22;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Noto Sans TC", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label14.Location = new System.Drawing.Point(51, 300);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(192, 42);
+            this.label14.TabIndex = 23;
+            this.label14.Text = "新訂閱輸出：";
             // 
             // BtPreview_HiveBee
             // 
@@ -223,7 +345,7 @@
             this.Tb_Msg_HiveBee_Msg.Font = new System.Drawing.Font("Noto Sans TC", 14F);
             this.Tb_Msg_HiveBee_Msg.Location = new System.Drawing.Point(173, 146);
             this.Tb_Msg_HiveBee_Msg.Name = "Tb_Msg_HiveBee_Msg";
-            this.Tb_Msg_HiveBee_Msg.Size = new System.Drawing.Size(451, 35);
+            this.Tb_Msg_HiveBee_Msg.Size = new System.Drawing.Size(451, 48);
             this.Tb_Msg_HiveBee_Msg.TabIndex = 19;
             // 
             // label13
@@ -232,7 +354,7 @@
             this.label13.Font = new System.Drawing.Font("Noto Sans TC", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label13.Location = new System.Drawing.Point(29, 149);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(147, 27);
+            this.label13.Size = new System.Drawing.Size(222, 42);
             this.label13.TabIndex = 18;
             this.label13.Text = "HiveBee 輸出：";
             // 
@@ -296,112 +418,25 @@
             this.Tb_Msg_Streamlabs_Bits_Msg.Font = new System.Drawing.Font("Noto Sans TC", 14F);
             this.Tb_Msg_Streamlabs_Bits_Msg.Location = new System.Drawing.Point(174, 256);
             this.Tb_Msg_Streamlabs_Bits_Msg.Name = "Tb_Msg_Streamlabs_Bits_Msg";
-            this.Tb_Msg_Streamlabs_Bits_Msg.Size = new System.Drawing.Size(451, 35);
+            this.Tb_Msg_Streamlabs_Bits_Msg.Size = new System.Drawing.Size(451, 48);
             this.Tb_Msg_Streamlabs_Bits_Msg.TabIndex = 12;
-            //
+            // 
             // label6
-            //
+            // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Noto Sans TC", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label6.Location = new System.Drawing.Point(51, 259);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(126, 27);
+            this.label6.Size = new System.Drawing.Size(192, 42);
             this.label6.TabIndex = 11;
             this.label6.Text = "小奇點輸出：";
-            //
-            // BtPreview_Streamlabs_Sub
-            //
-            this.BtPreview_Streamlabs_Sub.Font = new System.Drawing.Font("Noto Sans TC", 12F);
-            this.BtPreview_Streamlabs_Sub.Location = new System.Drawing.Point(631, 297);
-            this.BtPreview_Streamlabs_Sub.Name = "BtPreview_Streamlabs_Sub";
-            this.BtPreview_Streamlabs_Sub.Size = new System.Drawing.Size(62, 35);
-            this.BtPreview_Streamlabs_Sub.TabIndex = 21;
-            this.BtPreview_Streamlabs_Sub.Text = "預覽";
-            this.BtPreview_Streamlabs_Sub.UseVisualStyleBackColor = true;
-            this.BtPreview_Streamlabs_Sub.Click += new System.EventHandler(this.BtPreview_Streamlabs_Sub_Click);
-            //
-            // Tb_Msg_Streamlabs_Sub_Msg
-            //
-            this.Tb_Msg_Streamlabs_Sub_Msg.Font = new System.Drawing.Font("Noto Sans TC", 14F);
-            this.Tb_Msg_Streamlabs_Sub_Msg.Location = new System.Drawing.Point(174, 297);
-            this.Tb_Msg_Streamlabs_Sub_Msg.Name = "Tb_Msg_Streamlabs_Sub_Msg";
-            this.Tb_Msg_Streamlabs_Sub_Msg.Size = new System.Drawing.Size(451, 35);
-            this.Tb_Msg_Streamlabs_Sub_Msg.TabIndex = 22;
-            //
-            // label14
-            //
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Noto Sans TC", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label14.Location = new System.Drawing.Point(51, 300);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(126, 27);
-            this.label14.TabIndex = 23;
-            this.label14.Text = "新訂閱輸出：";
-            //
-            // BtPreview_Streamlabs_Resub
-            //
-            this.BtPreview_Streamlabs_Resub.Font = new System.Drawing.Font("Noto Sans TC", 12F);
-            this.BtPreview_Streamlabs_Resub.Location = new System.Drawing.Point(631, 338);
-            this.BtPreview_Streamlabs_Resub.Name = "BtPreview_Streamlabs_Resub";
-            this.BtPreview_Streamlabs_Resub.Size = new System.Drawing.Size(62, 35);
-            this.BtPreview_Streamlabs_Resub.TabIndex = 24;
-            this.BtPreview_Streamlabs_Resub.Text = "預覽";
-            this.BtPreview_Streamlabs_Resub.UseVisualStyleBackColor = true;
-            this.BtPreview_Streamlabs_Resub.Click += new System.EventHandler(this.BtPreview_Streamlabs_Resub_Click);
-            //
-            // Tb_Msg_Streamlabs_Resub_Msg
-            //
-            this.Tb_Msg_Streamlabs_Resub_Msg.Font = new System.Drawing.Font("Noto Sans TC", 14F);
-            this.Tb_Msg_Streamlabs_Resub_Msg.Location = new System.Drawing.Point(174, 338);
-            this.Tb_Msg_Streamlabs_Resub_Msg.Name = "Tb_Msg_Streamlabs_Resub_Msg";
-            this.Tb_Msg_Streamlabs_Resub_Msg.Size = new System.Drawing.Size(451, 35);
-            this.Tb_Msg_Streamlabs_Resub_Msg.TabIndex = 25;
-            //
-            // label15
-            //
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Noto Sans TC", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label15.Location = new System.Drawing.Point(70, 341);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(107, 27);
-            this.label15.TabIndex = 26;
-            this.label15.Text = "續訂輸出：";
-            //
-            // BtPreview_SoundAlerts
-            //
-            this.BtPreview_SoundAlerts.Font = new System.Drawing.Font("Noto Sans TC", 12F);
-            this.BtPreview_SoundAlerts.Location = new System.Drawing.Point(631, 379);
-            this.BtPreview_SoundAlerts.Name = "BtPreview_SoundAlerts";
-            this.BtPreview_SoundAlerts.Size = new System.Drawing.Size(62, 35);
-            this.BtPreview_SoundAlerts.TabIndex = 29;
-            this.BtPreview_SoundAlerts.Text = "預覽";
-            this.BtPreview_SoundAlerts.UseVisualStyleBackColor = true;
-            this.BtPreview_SoundAlerts.Click += new System.EventHandler(this.BtPreview_SoundAlerts_Click);
-            //
-            // Tb_Msg_SoundAlerts_Msg
-            //
-            this.Tb_Msg_SoundAlerts_Msg.Font = new System.Drawing.Font("Noto Sans TC", 14F);
-            this.Tb_Msg_SoundAlerts_Msg.Location = new System.Drawing.Point(174, 379);
-            this.Tb_Msg_SoundAlerts_Msg.Name = "Tb_Msg_SoundAlerts_Msg";
-            this.Tb_Msg_SoundAlerts_Msg.Size = new System.Drawing.Size(451, 35);
-            this.Tb_Msg_SoundAlerts_Msg.TabIndex = 28;
-            //
-            // label16
-            //
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Noto Sans TC", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label16.Location = new System.Drawing.Point(15, 382);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(162, 27);
-            this.label16.TabIndex = 27;
-            this.label16.Text = "SoundAlerts 輸出：";
-            //
+            // 
             // Tb_Msg_Streamlabs_SubGift_Msg
             // 
             this.Tb_Msg_Streamlabs_SubGift_Msg.Font = new System.Drawing.Font("Noto Sans TC", 14F);
             this.Tb_Msg_Streamlabs_SubGift_Msg.Location = new System.Drawing.Point(174, 215);
             this.Tb_Msg_Streamlabs_SubGift_Msg.Name = "Tb_Msg_Streamlabs_SubGift_Msg";
-            this.Tb_Msg_Streamlabs_SubGift_Msg.Size = new System.Drawing.Size(451, 35);
+            this.Tb_Msg_Streamlabs_SubGift_Msg.Size = new System.Drawing.Size(451, 48);
             this.Tb_Msg_Streamlabs_SubGift_Msg.TabIndex = 10;
             // 
             // label5
@@ -410,7 +445,7 @@
             this.label5.Font = new System.Drawing.Font("Noto Sans TC", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label5.Location = new System.Drawing.Point(70, 218);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(107, 27);
+            this.label5.Size = new System.Drawing.Size(163, 42);
             this.label5.TabIndex = 9;
             this.label5.Text = "贈訂輸出：";
             // 
@@ -419,7 +454,7 @@
             this.Tb_Msg_Streamlabs_Paypal_Msg.Font = new System.Drawing.Font("Noto Sans TC", 14F);
             this.Tb_Msg_Streamlabs_Paypal_Msg.Location = new System.Drawing.Point(173, 105);
             this.Tb_Msg_Streamlabs_Paypal_Msg.Name = "Tb_Msg_Streamlabs_Paypal_Msg";
-            this.Tb_Msg_Streamlabs_Paypal_Msg.Size = new System.Drawing.Size(451, 35);
+            this.Tb_Msg_Streamlabs_Paypal_Msg.Size = new System.Drawing.Size(451, 48);
             this.Tb_Msg_Streamlabs_Paypal_Msg.TabIndex = 8;
             // 
             // label4
@@ -428,7 +463,7 @@
             this.label4.Font = new System.Drawing.Font("Noto Sans TC", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label4.Location = new System.Drawing.Point(43, 108);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(133, 27);
+            this.label4.Size = new System.Drawing.Size(199, 42);
             this.label4.TabIndex = 7;
             this.label4.Text = "Paypal 輸出：";
             // 
@@ -437,7 +472,7 @@
             this.Tb_Msg_OPay_Msg.Font = new System.Drawing.Font("Noto Sans TC", 14F);
             this.Tb_Msg_OPay_Msg.Location = new System.Drawing.Point(173, 64);
             this.Tb_Msg_OPay_Msg.Name = "Tb_Msg_OPay_Msg";
-            this.Tb_Msg_OPay_Msg.Size = new System.Drawing.Size(451, 35);
+            this.Tb_Msg_OPay_Msg.Size = new System.Drawing.Size(451, 48);
             this.Tb_Msg_OPay_Msg.TabIndex = 6;
             // 
             // label3
@@ -446,7 +481,7 @@
             this.label3.Font = new System.Drawing.Font("Noto Sans TC", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label3.Location = new System.Drawing.Point(50, 67);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(126, 27);
+            this.label3.Size = new System.Drawing.Size(192, 42);
             this.label3.TabIndex = 5;
             this.label3.Text = "歐富寶輸出：";
             // 
@@ -455,7 +490,7 @@
             this.Tb_Msg_ECPay_Msg.Font = new System.Drawing.Font("Noto Sans TC", 14F);
             this.Tb_Msg_ECPay_Msg.Location = new System.Drawing.Point(173, 23);
             this.Tb_Msg_ECPay_Msg.Name = "Tb_Msg_ECPay_Msg";
-            this.Tb_Msg_ECPay_Msg.Size = new System.Drawing.Size(451, 35);
+            this.Tb_Msg_ECPay_Msg.Size = new System.Drawing.Size(451, 48);
             this.Tb_Msg_ECPay_Msg.TabIndex = 4;
             // 
             // label2
@@ -464,14 +499,14 @@
             this.label2.Font = new System.Drawing.Font("Noto Sans TC", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label2.Location = new System.Drawing.Point(69, 26);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(107, 27);
+            this.label2.Size = new System.Drawing.Size(163, 42);
             this.label2.TabIndex = 3;
             this.label2.Text = "綠界輸出：";
-            //
+            // 
             // Bt_Save
-            //
+            // 
             this.Bt_Save.Font = new System.Drawing.Font("Noto Sans TC", 14F);
-            this.Bt_Save.Location = new System.Drawing.Point(12, 772);
+            this.Bt_Save.Location = new System.Drawing.Point(12, 817);
             this.Bt_Save.Name = "Bt_Save";
             this.Bt_Save.Size = new System.Drawing.Size(699, 46);
             this.Bt_Save.TabIndex = 5;
@@ -493,7 +528,7 @@
             this.groupBox3.Controls.Add(this.label8);
             this.groupBox3.Controls.Add(this.Tb_Msg_Custom_Anon);
             this.groupBox3.Controls.Add(this.label7);
-            this.groupBox3.Location = new System.Drawing.Point(12, 563);
+            this.groupBox3.Location = new System.Drawing.Point(12, 608);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(699, 203);
             this.groupBox3.TabIndex = 6;
@@ -505,7 +540,7 @@
             this.Tb_Msg_Custom_Sub_Tier3.Font = new System.Drawing.Font("Noto Sans TC", 14F);
             this.Tb_Msg_Custom_Sub_Tier3.Location = new System.Drawing.Point(466, 148);
             this.Tb_Msg_Custom_Sub_Tier3.Name = "Tb_Msg_Custom_Sub_Tier3";
-            this.Tb_Msg_Custom_Sub_Tier3.Size = new System.Drawing.Size(226, 35);
+            this.Tb_Msg_Custom_Sub_Tier3.Size = new System.Drawing.Size(226, 48);
             this.Tb_Msg_Custom_Sub_Tier3.TabIndex = 24;
             // 
             // label12
@@ -514,7 +549,7 @@
             this.label12.Font = new System.Drawing.Font("Noto Sans TC", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label12.Location = new System.Drawing.Point(381, 151);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(88, 27);
+            this.label12.Size = new System.Drawing.Size(134, 42);
             this.label12.TabIndex = 23;
             this.label12.Text = "層級三：";
             // 
@@ -523,7 +558,7 @@
             this.Tb_Msg_Custom_Sub_Tier2.Font = new System.Drawing.Font("Noto Sans TC", 14F);
             this.Tb_Msg_Custom_Sub_Tier2.Location = new System.Drawing.Point(466, 107);
             this.Tb_Msg_Custom_Sub_Tier2.Name = "Tb_Msg_Custom_Sub_Tier2";
-            this.Tb_Msg_Custom_Sub_Tier2.Size = new System.Drawing.Size(226, 35);
+            this.Tb_Msg_Custom_Sub_Tier2.Size = new System.Drawing.Size(226, 48);
             this.Tb_Msg_Custom_Sub_Tier2.TabIndex = 22;
             // 
             // label11
@@ -532,7 +567,7 @@
             this.label11.Font = new System.Drawing.Font("Noto Sans TC", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label11.Location = new System.Drawing.Point(381, 110);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(88, 27);
+            this.label11.Size = new System.Drawing.Size(134, 42);
             this.label11.TabIndex = 21;
             this.label11.Text = "層級二：";
             // 
@@ -541,7 +576,7 @@
             this.Tb_Msg_Custom_Sub_Tier1.Font = new System.Drawing.Font("Noto Sans TC", 14F);
             this.Tb_Msg_Custom_Sub_Tier1.Location = new System.Drawing.Point(466, 66);
             this.Tb_Msg_Custom_Sub_Tier1.Name = "Tb_Msg_Custom_Sub_Tier1";
-            this.Tb_Msg_Custom_Sub_Tier1.Size = new System.Drawing.Size(226, 35);
+            this.Tb_Msg_Custom_Sub_Tier1.Size = new System.Drawing.Size(226, 48);
             this.Tb_Msg_Custom_Sub_Tier1.TabIndex = 20;
             // 
             // label10
@@ -550,7 +585,7 @@
             this.label10.Font = new System.Drawing.Font("Noto Sans TC", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label10.Location = new System.Drawing.Point(381, 69);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(88, 27);
+            this.label10.Size = new System.Drawing.Size(134, 42);
             this.label10.TabIndex = 19;
             this.label10.Text = "層級一：";
             // 
@@ -559,7 +594,7 @@
             this.Tb_Msg_Custom_Bits.Font = new System.Drawing.Font("Noto Sans TC", 14F);
             this.Tb_Msg_Custom_Bits.Location = new System.Drawing.Point(90, 66);
             this.Tb_Msg_Custom_Bits.Name = "Tb_Msg_Custom_Bits";
-            this.Tb_Msg_Custom_Bits.Size = new System.Drawing.Size(266, 35);
+            this.Tb_Msg_Custom_Bits.Size = new System.Drawing.Size(266, 48);
             this.Tb_Msg_Custom_Bits.TabIndex = 18;
             // 
             // label9
@@ -568,7 +603,7 @@
             this.label9.Font = new System.Drawing.Font("Noto Sans TC", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label9.Location = new System.Drawing.Point(6, 69);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(88, 27);
+            this.label9.Size = new System.Drawing.Size(134, 42);
             this.label9.TabIndex = 17;
             this.label9.Text = "小奇點：";
             // 
@@ -577,7 +612,7 @@
             this.Tb_Msg_Custom_Sub_Gift.Font = new System.Drawing.Font("Noto Sans TC", 14F);
             this.Tb_Msg_Custom_Sub_Gift.Location = new System.Drawing.Point(466, 25);
             this.Tb_Msg_Custom_Sub_Gift.Name = "Tb_Msg_Custom_Sub_Gift";
-            this.Tb_Msg_Custom_Sub_Gift.Size = new System.Drawing.Size(226, 35);
+            this.Tb_Msg_Custom_Sub_Gift.Size = new System.Drawing.Size(226, 48);
             this.Tb_Msg_Custom_Sub_Gift.TabIndex = 16;
             // 
             // label8
@@ -586,7 +621,7 @@
             this.label8.Font = new System.Drawing.Font("Noto Sans TC", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label8.Location = new System.Drawing.Point(362, 28);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(107, 27);
+            this.label8.Size = new System.Drawing.Size(163, 42);
             this.label8.TabIndex = 15;
             this.label8.Text = "贈禮訂閱：";
             // 
@@ -595,7 +630,7 @@
             this.Tb_Msg_Custom_Anon.Font = new System.Drawing.Font("Noto Sans TC", 14F);
             this.Tb_Msg_Custom_Anon.Location = new System.Drawing.Point(73, 25);
             this.Tb_Msg_Custom_Anon.Name = "Tb_Msg_Custom_Anon";
-            this.Tb_Msg_Custom_Anon.Size = new System.Drawing.Size(283, 35);
+            this.Tb_Msg_Custom_Anon.Size = new System.Drawing.Size(283, 48);
             this.Tb_Msg_Custom_Anon.TabIndex = 14;
             // 
             // label7
@@ -604,14 +639,14 @@
             this.label7.Font = new System.Drawing.Font("Noto Sans TC", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label7.Location = new System.Drawing.Point(6, 28);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(69, 27);
+            this.label7.Size = new System.Drawing.Size(105, 42);
             this.label7.TabIndex = 13;
             this.label7.Text = "匿名：";
-            //
+            // 
             // BtReset
-            //
+            // 
             this.BtReset.Font = new System.Drawing.Font("Noto Sans TC", 14F);
-            this.BtReset.Location = new System.Drawing.Point(12, 824);
+            this.BtReset.Location = new System.Drawing.Point(12, 869);
             this.BtReset.Name = "BtReset";
             this.BtReset.Size = new System.Drawing.Size(699, 46);
             this.BtReset.TabIndex = 7;
@@ -621,9 +656,9 @@
             // 
             // Config
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 26F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(723, 882);
+            this.ClientSize = new System.Drawing.Size(723, 927);
             this.Controls.Add(this.BtReset);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.Bt_Save);
@@ -697,5 +732,8 @@
         private System.Windows.Forms.Button BtPreview_SoundAlerts;
         private System.Windows.Forms.TextBox Tb_Msg_SoundAlerts_Msg;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Button BtPreview_StreamBoostMax_Text;
+        private System.Windows.Forms.TextBox Tb_Msg_StreamBoostMax_Text_Msg;
+        private System.Windows.Forms.Label label17;
     }
 }

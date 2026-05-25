@@ -39,6 +39,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.Tb_SoundAlertsURL = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.Tb_StreamBoostMaxTextURL = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -47,7 +49,7 @@
             this.label1.Font = new System.Drawing.Font("Noto Sans TC", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label1.Location = new System.Drawing.Point(65, 75);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(221, 27);
+            this.label1.Size = new System.Drawing.Size(325, 40);
             this.label1.TabIndex = 0;
             this.label1.Text = "綠界贊助成功動畫網址：";
             // 
@@ -57,13 +59,13 @@
             this.Tb_ECPayAPIURL.Location = new System.Drawing.Point(283, 75);
             this.Tb_ECPayAPIURL.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Tb_ECPayAPIURL.Name = "Tb_ECPayAPIURL";
-            this.Tb_ECPayAPIURL.Size = new System.Drawing.Size(1050, 25);
+            this.Tb_ECPayAPIURL.Size = new System.Drawing.Size(1050, 34);
             this.Tb_ECPayAPIURL.TabIndex = 3;
             // 
             // BtnEnterMonitor
             // 
             this.BtnEnterMonitor.Font = new System.Drawing.Font("Noto Sans TC", 9F);
-            this.BtnEnterMonitor.Location = new System.Drawing.Point(12, 174);
+            this.BtnEnterMonitor.Location = new System.Drawing.Point(12, 207);
             this.BtnEnterMonitor.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.BtnEnterMonitor.Name = "BtnEnterMonitor";
             this.BtnEnterMonitor.Size = new System.Drawing.Size(1327, 35);
@@ -78,7 +80,7 @@
             this.Tb_OPayAPIURL.Location = new System.Drawing.Point(283, 42);
             this.Tb_OPayAPIURL.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Tb_OPayAPIURL.Name = "Tb_OPayAPIURL";
-            this.Tb_OPayAPIURL.Size = new System.Drawing.Size(1050, 25);
+            this.Tb_OPayAPIURL.Size = new System.Drawing.Size(1050, 34);
             this.Tb_OPayAPIURL.TabIndex = 2;
             // 
             // label2
@@ -87,7 +89,7 @@
             this.label2.Font = new System.Drawing.Font("Noto Sans TC", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label2.Location = new System.Drawing.Point(46, 42);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(240, 27);
+            this.label2.Size = new System.Drawing.Size(353, 40);
             this.label2.TabIndex = 4;
             this.label2.Text = "歐富寶贊助成功動畫網址：";
             // 
@@ -97,7 +99,7 @@
             this.Tb_StreamlabsKey.Location = new System.Drawing.Point(283, 11);
             this.Tb_StreamlabsKey.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Tb_StreamlabsKey.Name = "Tb_StreamlabsKey";
-            this.Tb_StreamlabsKey.Size = new System.Drawing.Size(1050, 25);
+            this.Tb_StreamlabsKey.Size = new System.Drawing.Size(1050, 34);
             this.Tb_StreamlabsKey.TabIndex = 1;
             // 
             // label3
@@ -106,7 +108,7 @@
             this.label3.Font = new System.Drawing.Font("Noto Sans TC", 14F);
             this.label3.Location = new System.Drawing.Point(12, 11);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(274, 27);
+            this.label3.Size = new System.Drawing.Size(401, 40);
             this.label3.TabIndex = 7;
             this.label3.Text = "Streamlabs Socket API 符記：";
             // 
@@ -116,7 +118,7 @@
             this.Tb_HiveBeeAPIURL.Location = new System.Drawing.Point(283, 108);
             this.Tb_HiveBeeAPIURL.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Tb_HiveBeeAPIURL.Name = "Tb_HiveBeeAPIURL";
-            this.Tb_HiveBeeAPIURL.Size = new System.Drawing.Size(1050, 25);
+            this.Tb_HiveBeeAPIURL.Size = new System.Drawing.Size(1050, 34);
             this.Tb_HiveBeeAPIURL.TabIndex = 4;
             // 
             // label4
@@ -125,34 +127,55 @@
             this.label4.Font = new System.Drawing.Font("Noto Sans TC", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label4.Location = new System.Drawing.Point(105, 106);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(181, 27);
+            this.label4.Size = new System.Drawing.Size(266, 40);
             this.label4.TabIndex = 9;
             this.label4.Text = "HiveBee通知網址：";
-            //
+            // 
             // Tb_SoundAlertsURL
-            //
+            // 
             this.Tb_SoundAlertsURL.Font = new System.Drawing.Font("Noto Sans TC", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Tb_SoundAlertsURL.Location = new System.Drawing.Point(283, 141);
             this.Tb_SoundAlertsURL.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Tb_SoundAlertsURL.Name = "Tb_SoundAlertsURL";
-            this.Tb_SoundAlertsURL.Size = new System.Drawing.Size(1050, 25);
+            this.Tb_SoundAlertsURL.Size = new System.Drawing.Size(1050, 34);
             this.Tb_SoundAlertsURL.TabIndex = 5;
-            //
+            // 
             // label5
-            //
+            // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Noto Sans TC", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label5.Location = new System.Drawing.Point(46, 139);
+            this.label5.Location = new System.Drawing.Point(35, 139);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(240, 27);
+            this.label5.Size = new System.Drawing.Size(370, 40);
             this.label5.TabIndex = 10;
             this.label5.Text = "SoundAlerts Overlay網址：";
-            //
+            // 
+            // Tb_StreamBoostMaxTextURL
+            // 
+            this.Tb_StreamBoostMaxTextURL.Font = new System.Drawing.Font("Noto Sans TC", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Tb_StreamBoostMaxTextURL.Location = new System.Drawing.Point(283, 174);
+            this.Tb_StreamBoostMaxTextURL.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.Tb_StreamBoostMaxTextURL.Name = "Tb_StreamBoostMaxTextURL";
+            this.Tb_StreamBoostMaxTextURL.Size = new System.Drawing.Size(1050, 34);
+            this.Tb_StreamBoostMaxTextURL.TabIndex = 6;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Noto Sans TC", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label6.Location = new System.Drawing.Point(23, 172);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(386, 40);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "StreamBoostMax 訊息網址：";
+            // 
             // Startup
-            //
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 26F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1345, 215);
+            this.ClientSize = new System.Drawing.Size(1345, 250);
+            this.Controls.Add(this.Tb_StreamBoostMaxTextURL);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.Tb_SoundAlertsURL);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.Tb_HiveBeeAPIURL);
@@ -192,6 +215,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox Tb_SoundAlertsURL;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox Tb_StreamBoostMaxTextURL;
+        private System.Windows.Forms.Label label6;
     }
 }
 
