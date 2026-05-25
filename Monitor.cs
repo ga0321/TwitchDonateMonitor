@@ -93,8 +93,40 @@ namespace DonateMonitor
         private void LoadCumulativeDataFromDB()
         {
             var data = DonateDB.GetAllCumulativeData();
+
+            // 預先聚合小奇點：Streamlabs Bits 與 SoundAlerts(cost_type=bits) 合併為單一 OBS 行
+            var bitsTotals = new Dictionary<string, decimal>();
+            var bitsDisplayName = new Dictionary<string, string>();
             foreach (var item in data)
             {
+                bool isStreamlabsBits = item.Type == Global.Custom_Bits;
+                bool isSoundAlertsBits = item.Type == Global.Type_SoundAlerts
+                                         && string.Equals(item.Currency, "bits", StringComparison.OrdinalIgnoreCase);
+                if (!isStreamlabsBits && !isSoundAlertsBits) continue;
+
+                string key = item.Account ?? "";
+                decimal cur;
+                bitsTotals.TryGetValue(key, out cur);
+                bitsTotals[key] = cur + item.TotalAmount;
+
+                // 顯示名稱優先用 Streamlabs Bits 的；SoundAlerts 僅在尚未有時補上
+                if (isStreamlabsBits)
+                {
+                    bitsDisplayName[key] = !string.IsNullOrEmpty(item.DisplayName) ? item.DisplayName : item.Account;
+                }
+                else if (!bitsDisplayName.ContainsKey(key))
+                {
+                    bitsDisplayName[key] = !string.IsNullOrEmpty(item.DisplayName) ? item.DisplayName : item.Account;
+                }
+            }
+
+            foreach (var item in data)
+            {
+                // 小奇點與 SoundAlerts(bits) 在後面統一輸出
+                if (item.Type == Global.Custom_Bits) continue;
+                if (item.Type == Global.Type_SoundAlerts
+                    && string.Equals(item.Currency, "bits", StringComparison.OrdinalIgnoreCase)) continue;
+
                 // 檢查是否要輸出 (新訂閱/續訂要檢查設定)
                 if (item.Type == Global.Type_Sub && !Global.EnableSubOutput)
                     continue;
@@ -120,11 +152,6 @@ namespace DonateMonitor
                     // 新訂閱格式: {displayName} 新訂閱{months}個月({subplan})
                     obsOutput = string.Format(Global.Streamlabs_Sub_OBS_Msg, item.DisplayName, formated_amount, item.SubPlan);
                 }
-                else if (item.Type == Global.Custom_Bits)
-                {
-                    // 小奇點格式
-                    obsOutput = string.Format(Global.Streamlabs_Bits_OBS_Msg, item.DisplayName, formated_amount, item.Currency, item.SubPlan);
-                }
                 else if (item.Type == Global.Type_ECPay)
                 {
                     obsOutput = string.Format(Global.ECPAY_OBS_Msg, item.Account, formated_amount, item.Currency, item.SubPlan);
@@ -143,6 +170,7 @@ namespace DonateMonitor
                 }
                 else if (item.Type == Global.Type_SoundAlerts)
                 {
+                    // 其他 cost_type (例如 channel_points)
                     obsOutput = string.Format(Global.SoundAlerts_OBS_Msg, item.Account, formated_amount, item.Currency, item.SubPlan);
                 }
                 else
@@ -151,6 +179,20 @@ namespace DonateMonitor
                     obsOutput = $"{item.Account}: {formated_amount}{item.Currency}";
                 }
 
+                _obsDict[obsKey] = obsOutput;
+            }
+
+            // 統一輸出合併後的小奇點 OBS 行
+            foreach (var kvp in bitsTotals)
+            {
+                string account = kvp.Key;
+                decimal total = kvp.Value;
+                string displayName;
+                if (!bitsDisplayName.TryGetValue(account, out displayName) || string.IsNullOrEmpty(displayName))
+                    displayName = account;
+                string formated = Global.FormatAmount(total.ToString());
+                string obsOutput = string.Format(Global.Streamlabs_Bits_OBS_Msg, displayName, formated, Global.Custom_Bits, "");
+                string obsKey = $"{account}|{Global.Custom_Bits}|";
                 _obsDict[obsKey] = obsOutput;
             }
         }
@@ -228,8 +270,8 @@ namespace DonateMonitor
                 DonateDB.Write(nowFull, type, acc, name, donateAmount, type, msg, null);
             }
 
-            // 從 DB 計算累計金額 (使用 acc 帳號)
-            decimal totalAmount = isPreview ? donateAmount : DonateDB.GetTotalAmount(acc, type);
+            // 從 DB 計算累計金額 (合併 Streamlabs Bits 與 SoundAlerts cost_type=bits)
+            decimal totalAmount = isPreview ? donateAmount : DonateDB.GetCombinedBitsTotal(acc);
 
             // 使用累計金額輸出
             AppendLog(3, name, totalAmount.ToString(), msg, type, null, isPreview, acc);
@@ -359,9 +401,18 @@ namespace DonateMonitor
                 DonateDB.Write(nowFull, type, name, name, donateAmount, costType, "", null);
             }
 
-            decimal totalAmount = isPreview ? donateAmount : DonateDB.GetTotalAmount(name, type);
-
-            AppendLog(8, name, totalAmount.ToString(), "", costType, null, isPreview);
+            // SoundAlerts 用 Bits 觸發：與 Streamlabs 小奇點合併顯示在同一行
+            if (string.Equals(costType, "bits", StringComparison.OrdinalIgnoreCase))
+            {
+                decimal totalAmount = isPreview ? donateAmount : DonateDB.GetCombinedBitsTotal(name);
+                string displayName = isPreview ? name : DonateDB.GetLatestBitsDisplayName(name);
+                AppendLog(3, displayName, totalAmount.ToString(), "(音效版 SoundAlerts)", Global.Custom_Bits, null, isPreview, name);
+            }
+            else
+            {
+                decimal totalAmount = isPreview ? donateAmount : DonateDB.GetTotalAmount(name, type);
+                AppendLog(8, name, totalAmount.ToString(), "", costType, null, isPreview);
+            }
         }
         private void AppendLog(int nType, string name, string amount, string msg, string currency = "TWD", string subplan = null, bool isPreview = false, string acc = null)
         {
@@ -451,8 +502,10 @@ namespace DonateMonitor
             }
 
             _logQueue.Enqueue(logLine + extLogLine);
-            // 使用 name+type+subplan 作為 key，相同帳號+類型+層級只保留最新一筆
-            string obsKey = $"{name}|{type}|{subplan ?? ""}";
+            // 使用 acc(若有提供)/name + type + subplan 作為 key，相同帳號+類型+層級只保留最新一筆
+            // 小奇點 (nType==3) 必須以帳號為 key，才能讓 Streamlabs Bits 與 SoundAlerts(bits) 共用同一行
+            string obsKeyBase = !string.IsNullOrEmpty(acc) ? acc : name;
+            string obsKey = $"{obsKeyBase}|{type}|{subplan ?? ""}";
             _obsDict[obsKey] = obsOutput;
             // 標記資料管理頁需要刷新
             _dataGridDirty = true;

@@ -121,6 +121,64 @@ namespace DonateMonitor
         }
 
         /// <summary>
+        /// 取得指定帳號的小奇點合併總和：包含 Streamlabs Bits 與 SoundAlerts (cost_type = bits)
+        /// </summary>
+        public static decimal GetCombinedBitsTotal(string account)
+        {
+            using (var conn = new SQLiteConnection(ConnectionString))
+            {
+                conn.Open();
+                string sql = @"SELECT COALESCE(SUM(Amount), 0) FROM DonateLog
+                               WHERE Account = @account
+                               AND (Type = @bitsType OR (Type = @saType AND LOWER(Currency) = 'bits'))";
+                using (var cmd = new SQLiteCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@account", account);
+                    cmd.Parameters.AddWithValue("@bitsType", Global.Custom_Bits);
+                    cmd.Parameters.AddWithValue("@saType", Global.Type_SoundAlerts);
+                    var result = cmd.ExecuteScalar();
+                    return Convert.ToDecimal(result);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 取得指定帳號最新的小奇點顯示名稱
+        /// 優先 Streamlabs Bits，沒有則用 SoundAlerts (cost_type = bits)，最後回退為帳號
+        /// </summary>
+        public static string GetLatestBitsDisplayName(string account)
+        {
+            using (var conn = new SQLiteConnection(ConnectionString))
+            {
+                conn.Open();
+                string sql = @"SELECT DisplayName FROM DonateLog
+                               WHERE Account = @account AND Type = @bitsType AND DisplayName != ''
+                               ORDER BY Id DESC LIMIT 1";
+                using (var cmd = new SQLiteCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@account", account);
+                    cmd.Parameters.AddWithValue("@bitsType", Global.Custom_Bits);
+                    var r = cmd.ExecuteScalar();
+                    var name = r?.ToString();
+                    if (!string.IsNullOrEmpty(name)) return name;
+                }
+
+                string sql2 = @"SELECT DisplayName FROM DonateLog
+                                WHERE Account = @account AND Type = @saType AND LOWER(Currency) = 'bits' AND DisplayName != ''
+                                ORDER BY Id DESC LIMIT 1";
+                using (var cmd = new SQLiteCommand(sql2, conn))
+                {
+                    cmd.Parameters.AddWithValue("@account", account);
+                    cmd.Parameters.AddWithValue("@saType", Global.Type_SoundAlerts);
+                    var r = cmd.ExecuteScalar();
+                    var name = r?.ToString();
+                    if (!string.IsNullOrEmpty(name)) return name;
+                }
+            }
+            return account;
+        }
+
+        /// <summary>
         /// 累計贈訂記錄：同一 Account+SubPlan 只保留一筆，Amount 累加。
         /// 回傳累計後的總數量。
         /// </summary>
