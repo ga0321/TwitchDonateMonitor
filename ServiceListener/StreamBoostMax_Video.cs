@@ -135,6 +135,8 @@ namespace DonateMonitor.ServiceListener
             if (string.Equals(type, "donationEvent", StringComparison.OrdinalIgnoreCase))
             {
                 var eventId = obj.Value<string>("eventId");
+                var donationId = obj.Value<string>("donationId") ?? eventId;
+
                 if (!string.IsNullOrEmpty(eventId))
                 {
                     _ = SendJsonAsync(new JObject
@@ -144,6 +146,10 @@ namespace DonateMonitor.ServiceListener
                         ["timestamp"] = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
                     });
                 }
+
+                // 伺服器在收到 playbackStatus=completed 之前會將後續斗內留在佇列中，
+                // 必須回覆 playing → videoStarted → completed 才會收到下一筆事件。
+                _ = NotifyPlaybackCompletedAsync(donationId);
 
                 var donationType = obj.Value<string>("donationType");
                 if (!string.Equals(donationType, "video-donate", StringComparison.OrdinalIgnoreCase))
@@ -170,6 +176,34 @@ namespace DonateMonitor.ServiceListener
                     }
                 });
             }
+        }
+
+        private async Task NotifyPlaybackCompletedAsync(string donationId)
+        {
+            if (string.IsNullOrEmpty(donationId)) return;
+            try
+            {
+                await SendPlaybackStatusAsync(donationId, "playing").ConfigureAwait(false);
+                await Task.Delay(100).ConfigureAwait(false);
+                await SendPlaybackStatusAsync(donationId, "videoStarted").ConfigureAwait(false);
+                await Task.Delay(200).ConfigureAwait(false);
+                await SendPlaybackStatusAsync(donationId, "completed").ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                Global.WriteErrorLog($"[StreamBoostMax_Video] NotifyPlayback error: {ex.Message}");
+            }
+        }
+
+        private Task SendPlaybackStatusAsync(string donationId, string status)
+        {
+            return SendJsonAsync(new JObject
+            {
+                ["type"] = "playbackStatus",
+                ["donationId"] = donationId,
+                ["status"] = status,
+                ["timestamp"] = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
+            });
         }
 
         private async Task SendJsonAsync(JObject obj)
