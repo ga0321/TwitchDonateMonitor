@@ -21,6 +21,12 @@ namespace DonateMonitor
         public Config(Monitor monitor)
         {
             InitializeComponent();
+            BtPreview_StreamBoostMax_Text.Visible = false;
+            label17.Visible = false;
+            BtPreview_StreamBoostMax_Video.Visible = false;
+            label18.Visible = false;
+            Tb_Msg_StreamBoostMax_Text_Msg.Visible = false;
+            Tb_Msg_StreamBoostMax_Video_Msg.Visible = false;
             _monitor = monitor;
             _VARS = Global._VARS;
             LoadConfig();

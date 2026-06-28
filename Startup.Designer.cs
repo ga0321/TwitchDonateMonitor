@@ -39,10 +39,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.Tb_SoundAlertsURL = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.Tb_StreamBoostMaxTextURL = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.Tb_StreamBoostMaxVideoURL = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -152,6 +152,17 @@
             this.label5.TabIndex = 10;
             this.label5.Text = "SoundAlerts Overlay網址：";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Noto Sans TC", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label7.Location = new System.Drawing.Point(23, 205);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(386, 40);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "StreamBoostMax 影片網址：";
+            this.label7.Visible = false;
+            // 
             // Tb_StreamBoostMaxTextURL
             // 
             this.Tb_StreamBoostMaxTextURL.Font = new System.Drawing.Font("Noto Sans TC", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -160,6 +171,7 @@
             this.Tb_StreamBoostMaxTextURL.Name = "Tb_StreamBoostMaxTextURL";
             this.Tb_StreamBoostMaxTextURL.Size = new System.Drawing.Size(1050, 34);
             this.Tb_StreamBoostMaxTextURL.TabIndex = 6;
+            this.Tb_StreamBoostMaxTextURL.Visible = false;
             // 
             // label6
             // 
@@ -170,28 +182,20 @@
             this.label6.Size = new System.Drawing.Size(386, 40);
             this.label6.TabIndex = 11;
             this.label6.Text = "StreamBoostMax 訊息網址：";
-            //
+            this.label6.Visible = false;
+            // 
             // Tb_StreamBoostMaxVideoURL
-            //
+            // 
             this.Tb_StreamBoostMaxVideoURL.Font = new System.Drawing.Font("Noto Sans TC", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Tb_StreamBoostMaxVideoURL.Location = new System.Drawing.Point(283, 207);
             this.Tb_StreamBoostMaxVideoURL.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Tb_StreamBoostMaxVideoURL.Name = "Tb_StreamBoostMaxVideoURL";
             this.Tb_StreamBoostMaxVideoURL.Size = new System.Drawing.Size(1050, 34);
             this.Tb_StreamBoostMaxVideoURL.TabIndex = 7;
-            //
-            // label7
-            //
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Noto Sans TC", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label7.Location = new System.Drawing.Point(23, 205);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(386, 40);
-            this.label7.TabIndex = 12;
-            this.label7.Text = "StreamBoostMax 影片網址：";
-            //
+            this.Tb_StreamBoostMaxVideoURL.Visible = false;
+            // 
             // Startup
-            //
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 26F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1345, 285);
@@ -238,10 +242,10 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox Tb_SoundAlertsURL;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox Tb_StreamBoostMaxTextURL;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox Tb_StreamBoostMaxVideoURL;
-        private System.Windows.Forms.Label label7;
     }
 }
 

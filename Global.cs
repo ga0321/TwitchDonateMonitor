@@ -510,11 +510,13 @@ namespace DonateMonitor
         }
         static public bool IsEnableAnyService()
         {
-            return IsEnableECPAY() || IsEnableOPAY() || IsEnableStreamlabs() || IsEnableHiveBee() || IsEnableSoundAlerts() || IsEnableStreamBoostMax_Text() || IsEnableStreamBoostMax_Video();
+            //return IsEnableECPAY() || IsEnableOPAY() || IsEnableStreamlabs() || IsEnableHiveBee() || IsEnableSoundAlerts() || IsEnableStreamBoostMax_Text() || IsEnableStreamBoostMax_Video();
+            return IsEnableECPAY() || IsEnableOPAY() || IsEnableStreamlabs() || IsEnableHiveBee() || IsEnableSoundAlerts() ;
         }
         static public bool IsEnableAllService()
         {
-            return IsEnableECPAY() && IsEnableOPAY() && IsEnableStreamlabs() && IsEnableHiveBee() && IsEnableSoundAlerts() && IsEnableStreamBoostMax_Text() && IsEnableStreamBoostMax_Video();
+            //return IsEnableECPAY() && IsEnableOPAY() && IsEnableStreamlabs() && IsEnableHiveBee() && IsEnableSoundAlerts() && IsEnableStreamBoostMax_Text() && IsEnableStreamBoostMax_Video();
+            return IsEnableECPAY() && IsEnableOPAY() && IsEnableStreamlabs() && IsEnableHiveBee() && IsEnableSoundAlerts();
         }
         static public string FormatAmount(string amount)
         {

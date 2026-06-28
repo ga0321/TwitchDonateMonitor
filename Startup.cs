@@ -25,8 +25,8 @@ namespace DonateMonitor
             Tb_StreamlabsKey.Text = Setting.Read(Setting.kSTREAMLABS_KEY);
             Tb_HiveBeeAPIURL.Text = Setting.Read(Setting.kHIVEBEE_KEY);
             Tb_SoundAlertsURL.Text = Setting.Read(Setting.kSOUNDALERTS_OVERLAY_URL);
-            Tb_StreamBoostMaxTextURL.Text = Setting.Read(Setting.kSTREAMBOOSTMAX_TEXT_OVERLAY_URL);
-            Tb_StreamBoostMaxVideoURL.Text = Setting.Read(Setting.kSTREAMBOOSTMAX_VIDEO_OVERLAY_URL);
+            //Tb_StreamBoostMaxTextURL.Text = Setting.Read(Setting.kSTREAMBOOSTMAX_TEXT_OVERLAY_URL);
+            //Tb_StreamBoostMaxVideoURL.Text = Setting.Read(Setting.kSTREAMBOOSTMAX_VIDEO_OVERLAY_URL);
 
             // 檢查是否有舊紀錄
             try
@@ -227,7 +227,9 @@ namespace DonateMonitor
             string sApiUrl = tb.Text;
             if (string.IsNullOrEmpty(sApiUrl))
             {
-                //Global.ShowError("請輸入網址");
+                // 清空輸入時，一併清除已保存的設定
+                Setting.Save(Setting.kECPAY_APIURL, "");
+                Global.ECPAY_ListenKey = "";
                 return;
             }
 
@@ -244,7 +246,9 @@ namespace DonateMonitor
             string sApiUrl = tb.Text;
             if (string.IsNullOrEmpty(sApiUrl))
             {
-                //Global.ShowError("請輸入網址");
+                // 清空輸入時，一併清除已保存的設定
+                Setting.Save(Setting.kOPAY_APIURL, "");
+                Global.OPAY_ListenKey = "";
                 return;
             }
 
@@ -261,7 +265,9 @@ namespace DonateMonitor
             string sApiUrl = tb.Text;
             if (string.IsNullOrEmpty(sApiUrl))
             {
-                //Global.ShowError("請輸入KEY");
+                // 清空輸入時，一併清除已保存的設定
+                Setting.Save(Setting.kSTREAMLABS_KEY, "");
+                Global.StreamlabsKey = "";
                 return;
             }
 
@@ -277,7 +283,9 @@ namespace DonateMonitor
             string sApiUrl = tb.Text;
             if (string.IsNullOrEmpty(sApiUrl))
             {
-                //Global.ShowError("請輸入網址");
+                // 清空輸入時，一併清除已保存的設定
+                Setting.Save(Setting.kHIVEBEE_KEY, "");
+                Global.HiveBeeKey = "";
                 return;
             }
 
@@ -294,6 +302,9 @@ namespace DonateMonitor
             string sUrl = tb.Text;
             if (string.IsNullOrEmpty(sUrl))
             {
+                // 清空輸入時，一併清除已保存的設定
+                Setting.Save(Setting.kSOUNDALERTS_OVERLAY_URL, "");
+                Global.SoundAlertsOverlayUrl = "";
                 return;
             }
 
@@ -303,12 +314,15 @@ namespace DonateMonitor
             }
         }
 
-        private void BtInitStreamBoostMax_Text_Click()
+        /*private void BtInitStreamBoostMax_Text_Click()
         {
             var tb = Tb_StreamBoostMaxTextURL;
             string sUrl = tb.Text;
             if (string.IsNullOrEmpty(sUrl))
             {
+                // 清空輸入時，一併清除已保存的設定
+                Setting.Save(Setting.kSTREAMBOOSTMAX_TEXT_OVERLAY_URL, "");
+                Global.StreamBoostMax_Text_OverlayUrl = "";
                 return;
             }
 
@@ -324,6 +338,9 @@ namespace DonateMonitor
             string sUrl = tb.Text;
             if (string.IsNullOrEmpty(sUrl))
             {
+                // 清空輸入時，一併清除已保存的設定
+                Setting.Save(Setting.kSTREAMBOOSTMAX_VIDEO_OVERLAY_URL, "");
+                Global.StreamBoostMax_Video_OverlayUrl = "";
                 return;
             }
 
@@ -331,7 +348,7 @@ namespace DonateMonitor
             {
                 tb.Enabled = false;
             }
-        }
+        }*/
 
         private void BtnEnterMonitor_Click(object sender, EventArgs e)
         {
@@ -340,8 +357,8 @@ namespace DonateMonitor
             BtInitStreamLabs_Click();
             BtInitHiveBee_Click();
             BtInitSoundAlerts_Click();
-            BtInitStreamBoostMax_Text_Click();
-            BtInitStreamBoostMax_Video_Click();
+            //BtInitStreamBoostMax_Text_Click();
+            //BtInitStreamBoostMax_Video_Click();
 
             if (!Global.IsEnableAnyService())
             {
