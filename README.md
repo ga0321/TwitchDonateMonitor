@@ -4,7 +4,7 @@
 
 ## 功能特點
 
-- **多平台支援**：同時監控 綠界、歐付寶、Streamlabs、HiveBee、StreamBoostMax（訊息／影片）
+- **多平台支援**：同時監控 綠界、歐付寶、Streamlabs、HiveBee
 - **插件系統**：透過 Plugin 架構擴充功能，目前支援 SoundAlerts 音效兌換監控
 - **即時通知**：透過 SignalR、Socket.IO、原生 WebSocket 等技術，即時接收並顯示斗內訊息
 - **OBS 整合**：自動輸出斗內訊息至文字檔，方便 OBS 讀取並顯示於實況畫面
@@ -31,8 +31,6 @@
 | Streamlabs | 新訂閱 | 訂閱者名稱、訂閱層級、月數 |
 | Streamlabs | 續訂 | 訂閱者名稱、訂閱層級、月數 |
 | SoundAlerts | 音效兌換 | 觀眾名稱、花費點數、點數類型（Bits 會與 Streamlabs 小奇點合併計算） |
-| StreamBoostMax | 訊息斗內 | 贊助者帳號／顯示名稱、金額、幣別、訊息 |
-| StreamBoostMax | 影片斗內 | 贊助者帳號／顯示名稱、金額、幣別、影片網址 |
 
 ## 系統需求
 
@@ -57,8 +55,6 @@
 3. **Streamlabs**：填入您的Streamlabs Socket API 符記 (官網右側頭像 > 帳戶設定 > API設定 > 應用程式符記 > Socket API 符記)
 4. **HiveBee**：填入您的通知網址 (官網左側直播互動箱 > 互動工具箱 > 通知 > 通知網址)
 5. **SoundAlerts**：填入您的 SoundAlerts Overlay 網址
-6. **StreamBoostMax 訊息網址**：填入文字斗內通知欄的 Overlay 網址，格式類似 `https://www.streamboostmax.com/notification-box/v1/[token]`
-7. **StreamBoostMax 影片網址**：填入影片斗內通知欄的 Overlay 網址（同樣的網址結構，但 token 不同）
 
 點擊「進入監控頁面」後，程式將開始監控已設定的平台。
 
@@ -67,7 +63,7 @@
 ### 監控視窗
 
 - 主視窗會即時顯示來自各平台的斗內通知
-- 上方狀態列顯示各平台的連線狀態（有效/無效），包含 SoundAlerts、StreamBoostMax 訊息／影片狀態
+- 上方狀態列顯示各平台的連線狀態（有效/無效），包含 SoundAlerts 訊息／影片狀態
 - **清除累計按鈕**：點擊可清除所有累計紀錄，清除前會自動匯出 CSV 備份檔案（檔名格式：`donate_backup_YYYYMMDD_HHmmss.csv`）
 
 ### 資料管理
@@ -85,7 +81,7 @@
 | 欄位 | 說明 |
 |------|------|
 | 時間 | 資料建立時間 |
-| 類型 | 下拉選單，可選擇：綠界、歐富寶、HiveBee、Paypal(Streamlabs)、新訂閱、續訂、贈訂、小奇點、音效(SoundAlerts)、StreamBoostMax(訊息)、StreamBoostMax(影片) |
+| 類型 | 下拉選單，可選擇：綠界、歐富寶、HiveBee、Paypal(Streamlabs)、新訂閱、續訂、贈訂、小奇點、音效(SoundAlerts) |
 | 帳號 | 贊助者帳號 |
 | 顯示名稱 | 贊助者顯示名稱 |
 | 金額 | 贊助金額或數量 |
@@ -148,7 +144,6 @@
   - **層一贈訂**：採用累計合併儲存，同一贈送者+層級在資料庫中只保留一筆記錄，Amount 累加
   - **層二/層三贈訂**：逐筆儲存，每次贈訂事件獨立一筆記錄
 - **SoundAlerts 累計**：同一觀眾的音效兌換花費會自動累加；當 `cost_type` 為 `bits` 時會與 Streamlabs 小奇點合併計算，OBS 共用同一行
-- **StreamBoostMax 累計**：訊息斗內、影片斗內各自獨立累計，DB 中以不同類型儲存
 - **小奇點門檻**：當設定「小奇點達到才顯示於 OBS」> 0 時，累計未達門檻的帳號不會出現在 `obs.txt`（程式日誌仍會記錄）
 - **持久化**：所有累計資料儲存於 `donate.db` SQLite 資料庫，程式重啟後會自動載入
 - **清除功能**：點擊「清除累計」按鈕可重置所有累計，清除前會自動備份至 CSV 檔案
@@ -163,8 +158,6 @@
 | 大王 贈訂 2 個層二 | `大王: 3贈訂(層一)` + `大王: 2贈訂(層二)` |
 | viewer1 兌換 100 點音效（channel_points） | `viewer1: 100channel_points` |
 | viewer1 用 Bits 觸發音效 50（SoundAlerts）+ Streamlabs 直接 Cheer 100 | `viewer1: 150小奇點`（合併同一行） |
-| viewer2 透過 StreamBoostMax 訊息斗內 50 TWD | `viewer2: 50TWD` |
-| viewer2 再透過 StreamBoostMax 影片斗內 30 TWD | `viewer2: 50TWD`（訊息）+ `viewer2: 30TWD`（影片，獨立累計） |
 
 ## 插件系統
 
@@ -179,16 +172,6 @@
 - **去重機制**：3 秒內相同的 `(last_user, cost, cost_type)` 事件會自動去重
 - **隱藏運作**：WebView2 控制項隱藏在背景，不影響 UI
 - **小奇點合併**：`cost_type=bits` 的音效事件會與 Streamlabs Bits 合併到同一累計（依帳號），OBS 用 `Streamlabs_Bits_OBS_Msg` 格式輸出單一行；程式訊息區會額外標記 `(音效版 SoundAlerts)` 方便辨識
-
-## StreamBoostMax
-
-StreamBoostMax 採用原生 WebSocket（`wss://www.streamboostmax.com/ws/donations?resource_uuid={token}`），不需要 WebView2 或瀏覽器。
-
-- **訊息／影片分開**：兩個版本各自一個 Overlay token、各自一條 WebSocket、各自獨立累計
-- **協定**：`ping → pong` 心跳；收到 `donationEvent` 後送 `ack` 回傳 `eventId`，避免重送
-- **donationType 過濾**：訊息版只處理 `text-donate`；影片版只處理 `video-donate`
-- **斷線重連**：指數退避（1, 2, 4, 8, 16, 30 秒上限）+ 隨機抖動，連上後 attempt 計數歸零
-- **token 解析**：可貼整個 Overlay URL（`/notification-box/v1/{token}`），程式會自動抽 token
 
 ## 日誌檔案
 

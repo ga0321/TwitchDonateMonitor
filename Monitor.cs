@@ -663,14 +663,16 @@ namespace DonateMonitor
             {
                 _ = _pluginSoundAlerts.StartAsync(this, _ctsServices.Token);
             }
-            if (Global.IsEnableStreamBoostMax_Text())
-            {
-                _ = _servicesStreamBoostMaxText.StartAsync(this, _ctsServices.Token);
-            }
-            if (Global.IsEnableStreamBoostMax_Video())
-            {
-                _ = _servicesStreamBoostMaxVideo.StartAsync(this, _ctsServices.Token);
-            }
+            // 已停用 StreamBoostMax(訊息) 功能，保留代碼以便日後恢復
+            //if (Global.IsEnableStreamBoostMax_Text())
+            //{
+            //    _ = _servicesStreamBoostMaxText.StartAsync(this, _ctsServices.Token);
+            //}
+            // 已停用 StreamBoostMax(影片) 功能，保留代碼以便日後恢復
+            //if (Global.IsEnableStreamBoostMax_Video())
+            //{
+            //    _ = _servicesStreamBoostMaxVideo.StartAsync(this, _ctsServices.Token);
+            //}
         }
         private async Task UninitServices()
         {
